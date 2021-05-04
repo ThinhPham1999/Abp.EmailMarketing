@@ -1,4 +1,5 @@
-﻿using AutoMapper;
+﻿using Abp.EmailMarketing.Contacts;
+using AutoMapper;
 
 namespace Abp.EmailMarketing
 {
@@ -6,9 +7,8 @@ namespace Abp.EmailMarketing
     {
         public EmailMarketingApplicationAutoMapperProfile()
         {
-            /* You can configure your AutoMapper mapping configuration here.
-             * Alternatively, you can split your mapping configurations
-             * into multiple profile classes for a better organization. */
+            CreateMap<Contact, ContactDto>();
+            CreateMap<CreateUpdateContactDto, Contact>();
         }
     }
 }

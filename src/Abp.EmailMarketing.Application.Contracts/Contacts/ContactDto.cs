@@ -1,13 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
-using Volo.Abp.Domain.Entities.Auditing;
+using Volo.Abp.Application.Dtos;
 
 namespace Abp.EmailMarketing.Contacts
 {
-    public class Contact : AuditedAggregateRoot<Guid>
+    public class ContactDto : AuditedEntityDto<Guid>
     {
         public string Email { get; set; }
         public string FirstName { get; set; }

@@ -1,8 +1,34 @@
 {
   "culture": "en",
-  "texts": {
-    "Menu:Home": "Home",
-    "Welcome": "Welcome",
-    "LongWelcomeMessage": "Welcome to the application. This is a startup project based on the ABP framework. For more information, visit abp.io."
-  }
+    "texts": {
+        "Menu:Home": "Home",
+        "Welcome": "Welcome",
+        "LongWelcomeMessage": "Welcome to the application. This is a startup project based on the ABP framework. For more information, visit abp.io.",
+        "Menu:EmailMarketing": "Email Marketing",
+        "Menu:Contacts": "Contacts",
+        "Actions": "Action",
+        "Close": "Close",
+        "Delete": "Delete",
+        "Edit": "Edit",
+        "DateOfBirth": "Date of birth",
+        "NewContact": "New Contact",
+        "FirstName": "First name",
+        "LastName": "Last name",
+        "Type": "Type",
+        "Addition": "Addition",
+        "Email": "Email",
+        "CreationTime": "Creation time",
+        "AreYouSure": "Are you sure?",
+        "AreYouSureToDelete": "Are you sure to delete?",
+        "Enum:ContactType:0": "Group01",
+        "Enum:ContactType:1": "Group02",
+        "Enum:ContactType:2": "Group03",
+        "Enum:ContactType:3": "Group04",
+        "Enum:ContactType:4": "Group05",
+        "Enum:ContactType:5": "Group06",
+        "Enum:ContactType:6": "Group07",
+        "Enum:ContactType:7": "Group08",
+        "Enum:ContactType:8": "Group09",
+        "Enum:ContactType:9": "Group10"
+    }
 }

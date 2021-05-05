@@ -45,6 +45,19 @@ namespace Abp.EmailMarketing.Web.Menus
 
             administration.SetSubItemOrder(IdentityMenuNames.GroupName, 2);
             administration.SetSubItemOrder(SettingManagementMenuNames.GroupName, 3);
+
+            context.Menu.AddItem(
+                new ApplicationMenuItem(
+                    "EmailMarketing",
+                    l["Menu:EmailMarketing"],
+                    icon: "fa fa-book"
+                ).AddItem(
+                    new ApplicationMenuItem(
+                        "EmailMarketing.Contacts",
+                        l["Menu:Contacts"],
+                        url: "/Contacts")
+                  )
+            );
         }
     }
 }

@@ -10,10 +10,23 @@
 }
 <abp-card>
     <abp-card-header>
-        <h2>@L["Contacts"]</h2>
+        <abp-row>
+            <abp-column size-md="_6">
+                <abp-card-title>@L["Contacts"]</abp-card-title>
+            </abp-column>
+            <abp-column size-md="_6" class="text-right">
+                <abp-button id="NewContactButton"
+                            text="@L["NewContact"].Value"
+                            icon="plus"
+                            button-type="Primary" />
+            </abp-column>
+        </abp-row>
     </abp-card-header>
     <abp-card-body>
         <abp-table striped-rows="true" id="ContactsTable"></abp-table>
     </abp-card-body>
+
+    
+
 </abp-card>
 

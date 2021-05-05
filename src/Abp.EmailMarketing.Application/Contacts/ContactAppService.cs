@@ -11,12 +11,12 @@ namespace Abp.EmailMarketing.Contacts
 {
     public class ContactAppService :
         CrudAppService<
-            Contact,
-            ContactDto,
-            Guid,
-            PagedAndSortedResultRequestDto,
-            CreateUpdateContactDto,
-            IContactAppService>
+            Contact,      //The Contact entity
+            ContactDto,   //Used to show contact
+            Guid,         //Primary key of contact
+            PagedAndSortedResultRequestDto, //Used to paging/sorting
+            CreateUpdateContactDto>,        //Used to create/update contact
+        IContactAppService //implement the IContactAppService
     {
         public ContactAppService(IRepository<Contact, Guid> repository) : base(repository)
         {

@@ -8,17 +8,18 @@ namespace Abp.EmailMarketing.Contacts
     public class CreateUpdateContactDto
     {
         [Required]
-        [RegularExpression("^[a-zA-Z0-9_\\.-]+@([a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}$", ErrorMessage = "E-mail is not valid")]
+        [RegularExpression("^[a-zA-Z0-9_\\.-]+@([a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}$", ErrorMessage = "Email is not valid")]
         public string Email { get; set; }
+        [Required]
         [StringLength(50)]
         public string FirstName { get; set; }
+        [Required]
         [StringLength(50)]
         public string LastName { get; set; }
-        [Display(Name = "Date Of Birth")]
         [DataType(DataType.Date)]
         public DateTime? DateOfBirth { get; set; } = DateTime.Now;
-        [StringLength(15, MinimumLength = 10, ErrorMessage = "Phone number length must between 10 and 15")]
         [DataType(DataType.PhoneNumber)]
+        [StringLength(15, MinimumLength = 10, ErrorMessage = "The phone number's length must be between 10 and 15")]
         public string PhoneNumber { get; set; }
         public string Addition { get; set; }
         public int Status { get; set; }

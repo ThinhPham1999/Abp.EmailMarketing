@@ -1,6 +1,8 @@
 ﻿$(function () {
     var l = abp.localization.getResource('EmailMarketing');
 
+    
+
     var dataTable = $('#ContactsTable').DataTable(
         abp.libs.datatables.normalizeConfiguration({
             serverSide: true,
@@ -53,4 +55,19 @@
             ]
         })
     );
+
+    var createModal = new abp.ModalManager(abp.appPath + 'Contacts/CreateModal');
+
+    createModal.onResult(function () {
+        dataTable.ajax.reload();
+    });
+
+    $('#NewContactButton').click(function (e) {
+        e.preventDefault();
+        createModal.open();
+    });
+
+
+    
+
 });

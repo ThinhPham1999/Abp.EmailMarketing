@@ -11,7 +11,7 @@ namespace Abp.EmailMarketing.Contacts
             ContactDto,    //Used to show contact
             Guid,          //Primary key of contact
             PagedAndSortedResultRequestDto, // Used to paging/sorting
-            CreateUpdateContactDto>         // Used to create/update a book
+            CreateUpdateContactDto>         // Used to create/update a contact
     {
     }
 }

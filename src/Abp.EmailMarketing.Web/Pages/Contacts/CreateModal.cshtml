@@ -1,0 +1,19 @@
+﻿@page
+@using Abp.EmailMarketing.Localization
+@using Abp.EmailMarketing.Web.Pages.Contacts
+@using Microsoft.Extensions.Localization
+@using Volo.Abp.AspNetCore.Mvc.UI.Bootstrap.TagHelpers.Modal
+@model CreateModalModel
+@inject IStringLocalizer<EmailMarketingResource> L
+@{
+    Layout = null;
+}
+<abp-dynamic-form abp-model="Contact" asp-page="/Contacts/CreateModal">
+    <abp-modal>
+        <abp-modal-header title="@L["NewContact"].Value"></abp-modal-header>
+        <abp-modal-body>
+            <abp-form-content />
+        </abp-modal-body>
+        <abp-modal-footer buttons="@(AbpModalButtons.Cancel|AbpModalButtons.Save)"></abp-modal-footer>
+    </abp-modal>
+</abp-dynamic-form>

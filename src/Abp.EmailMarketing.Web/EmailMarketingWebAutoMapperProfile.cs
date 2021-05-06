@@ -1,4 +1,5 @@
-﻿using AutoMapper;
+﻿using Abp.EmailMarketing.Contacts;
+using AutoMapper;
 
 namespace Abp.EmailMarketing.Web
 {
@@ -6,7 +7,7 @@ namespace Abp.EmailMarketing.Web
     {
         public EmailMarketingWebAutoMapperProfile()
         {
-            //Define your AutoMapper configuration here for the Web project.
+            CreateMap<ContactDto, CreateUpdateContactDto>();
         }
     }
 }

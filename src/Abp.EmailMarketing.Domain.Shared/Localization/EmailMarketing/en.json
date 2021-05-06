@@ -29,6 +29,8 @@
         "Enum:ContactType:6": "Group07",
         "Enum:ContactType:7": "Group08",
         "Enum:ContactType:8": "Group09",
-        "Enum:ContactType:9": "Group10"
+        "Enum:ContactType:9": "Group10",
+        "BookDeletionConfirmationMessage": "Are you sure to delete the contact '{0}'?",
+        "SuccessfullyDeleted": "Successfully deleted!"
     }
 }

@@ -1,4 +1,5 @@
 ﻿using Abp.EmailMarketing.Contacts;
+using Abp.EmailMarketing.GroupContacts;
 using AutoMapper;
 
 namespace Abp.EmailMarketing
@@ -9,6 +10,7 @@ namespace Abp.EmailMarketing
         {
             CreateMap<Contact, ContactDto>();
             CreateMap<CreateUpdateContactDto, Contact>();
+            CreateMap<Group, GroupDto>();
         }
     }
 }

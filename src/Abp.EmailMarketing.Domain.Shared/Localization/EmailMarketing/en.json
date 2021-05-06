@@ -36,6 +36,15 @@
         "Permission:Contacts": "Contact Management",
         "Permission:Contacts.Create": "Creating new contact",
         "Permission:Contacts.Edit": "Editing the contact",
-        "Permission:Contacts.Delete": "Deleting the contact"
+        "Permission:Contacts.Delete": "Deleting the contact",
+        "EmailMarketing:00001": "There is already an group with the same name: {name}",
+        "Permission:Groups": "Group Contact Management",
+        "Permission:Groups.Create": "Creating new group",
+        "Permission:Groups.Edit": "Editing the group",
+        "Permission:Groups.Delete": "Deleting the group",
+        "Menu:Groups": "Group Contact",
+        "Groups": "Group contact",
+        "GroupDeletionConfirmationMessage": "Are you sure to delete the group '{0}'?",
+        "NewGroup": "New group contact"
     }
 }

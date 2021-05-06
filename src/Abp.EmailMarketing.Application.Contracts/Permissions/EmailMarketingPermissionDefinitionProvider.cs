@@ -16,6 +16,12 @@ namespace Abp.EmailMarketing.Permissions
             contactsPermisson.AddChild(EmailMarketingPermissions.Contacts.Edit, L("Permission:Contacts.Edit"));
             contactsPermisson.AddChild(EmailMarketingPermissions.Contacts.Delete, L("Permission:Contacts.Delete"));
 
+
+            var groupsPermission = EmailMarketingGroup.AddPermission(EmailMarketingPermissions.Groups.Default, L("Permission:Groups"));
+            groupsPermission.AddChild(EmailMarketingPermissions.Groups.Create, L("Permission:Groups.Create"));
+            groupsPermission.AddChild(EmailMarketingPermissions.Groups.Edit, L("Permission:Groups.Edit"));
+            groupsPermission.AddChild(EmailMarketingPermissions.Groups.Delete, L("Permission:Groups.Delete"));
+
         }
 
         private static LocalizableString L(string name)

@@ -12,5 +12,14 @@
             public const string Delete = Default + ".Delete";
         }
 
+        // *** ADDED a NEW NESTED CLASS ***
+        public static class Groups
+        {
+            public const string Default = GroupName + ".Groups";
+            public const string Create = Default + ".Create";
+            public const string Edit = Default + ".Edit";
+            public const string Delete = Default + ".Delete";
+        }
+
     }
 }

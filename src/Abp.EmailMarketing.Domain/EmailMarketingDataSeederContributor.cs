@@ -1,4 +1,5 @@
 ﻿using Abp.EmailMarketing.Contacts;
+using Abp.EmailMarketing.GroupContacts;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,14 +14,20 @@ namespace Abp.EmailMarketing
     public class EmailMarketingDataSeederContributor : IDataSeedContributor, ITransientDependency
     {
         private readonly IRepository<Contact, Guid> _contactRepository;
+        private readonly IGroupRepository _groupRepository;
+        private readonly GroupManager _groupManager;
 
-        public EmailMarketingDataSeederContributor(IRepository<Contact, Guid> contactRepository)
+        public EmailMarketingDataSeederContributor(IRepository<Contact, Guid> contactRepository
+            , IGroupRepository groupRepository, GroupManager groupManager)
         {
             _contactRepository = contactRepository;
+            _groupManager = groupManager;
+            _groupRepository = groupRepository;
         }
 
         public async Task SeedAsync(DataSeedContext context)
         {
+            //Add contact to db
             if (await _contactRepository.GetCountAsync() <= 0)
             {
                 await _contactRepository.InsertAsync(
@@ -49,6 +56,25 @@ namespace Abp.EmailMarketing
                     autoSave: true
                 );
             }
+
+            //Add group to db
+            if (await _groupRepository.CountAsync() <= 0)
+            {
+                await _groupRepository.InsertAsync(
+                    await _groupManager.CreateAsync(
+                        "Group01",
+                        "This is group 1"
+                    )
+                );
+
+                await _groupRepository.InsertAsync(
+                   await _groupManager.CreateAsync(
+                       "Group02",
+                       "This is group 2"
+                   )
+               );
+            }
+
         }
     }
 }

@@ -41,6 +41,10 @@
         "Permission:Groups": "Group Contact Management",
         "Permission:Groups.Create": "Creating new group",
         "Permission:Groups.Edit": "Editing the group",
-        "Permission:Groups.Delete": "Deleting the group"
+        "Permission:Groups.Delete": "Deleting the group",
+        "Menu:Groups": "Group Contact",
+        "Groups": "Group contact",
+        "GroupDeletionConfirmationMessage": "Are you sure to delete the group '{0}'?",
+        "NewGroup": "New group contact"
     }
 }

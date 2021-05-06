@@ -76,6 +76,16 @@ namespace Abp.EmailMarketing.Web.Menus
                     url: "/Contacts"
                 ));
             }
+
+            if (await context.IsGrantedAsync(EmailMarketingPermissions.Groups.Default))
+            {
+                emailMarketingMenu.AddItem(new ApplicationMenuItem(
+                    "EmailMarketing.Groups",
+                    l["Menu:Groups"],
+                    url: "/GroupContacts"
+                ));
+            }
+
         }
     }
 }

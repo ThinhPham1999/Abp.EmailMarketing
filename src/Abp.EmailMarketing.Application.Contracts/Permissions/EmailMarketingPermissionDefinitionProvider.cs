@@ -8,10 +8,14 @@ namespace Abp.EmailMarketing.Permissions
     {
         public override void Define(IPermissionDefinitionContext context)
         {
-            var myGroup = context.AddGroup(EmailMarketingPermissions.GroupName);
+            var EmailMarketingGroup = context.AddGroup(EmailMarketingPermissions.GroupName, L("Permission:EmailMarketing"));
 
             //Define your own permissions here. Example:
-            //myGroup.AddPermission(EmailMarketingPermissions.MyPermission1, L("Permission:MyPermission1"));
+            var contactsPermisson = EmailMarketingGroup.AddPermission(EmailMarketingPermissions.Contacts.Default, L("Permission:Contacts"));
+            contactsPermisson.AddChild(EmailMarketingPermissions.Contacts.Create, L("Permission:Contacts.Create"));
+            contactsPermisson.AddChild(EmailMarketingPermissions.Contacts.Edit, L("Permission:Contacts.Edit"));
+            contactsPermisson.AddChild(EmailMarketingPermissions.Contacts.Delete, L("Permission:Contacts.Delete"));
+
         }
 
         private static LocalizableString L(string name)

@@ -20,12 +20,14 @@
                             [
                                 {
                                     text: l('Edit'),
+                                    visible: abp.auth.isGranted('EmailMarketing.Contacts.Edit'), // Check for the Permission
                                     action: function (data) {
                                         editModal.open({ id: data.record.id });
                                     }
                                 },
                                 {
                                     text: l('Delete'),
+                                    visible: abp.auth.isGranted('EmailMarketing.Contacts.Delete'), // Check for the Permission
                                     confirmMessage: function (data) {
                                         return l('ContactDeletionConfirmationMessage', data.record.name);
                                     },

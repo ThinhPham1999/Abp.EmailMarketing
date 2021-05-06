@@ -31,6 +31,11 @@
         "Enum:ContactType:8": "Group09",
         "Enum:ContactType:9": "Group10",
         "BookDeletionConfirmationMessage": "Are you sure to delete the contact '{0}'?",
-        "SuccessfullyDeleted": "Successfully deleted!"
+        "SuccessfullyDeleted": "Successfully deleted!",
+        "Permission:EmailMarketing": "Email Marketing",
+        "Permission:Contacts": "Contact Management",
+        "Permission:Contacts.Create": "Creating new contact",
+        "Permission:Contacts.Edit": "Editing the contact",
+        "Permission:Contacts.Delete": "Deleting the contact"
     }
 }

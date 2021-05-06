@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Abp.EmailMarketing.Permissions;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,7 +21,11 @@ namespace Abp.EmailMarketing.Contacts
     {
         public ContactAppService(IRepository<Contact, Guid> repository) : base(repository)
         {
-
+            GetPolicyName = EmailMarketingPermissions.Contacts.Default;
+            GetListPolicyName = EmailMarketingPermissions.Contacts.Default;
+            CreatePolicyName = EmailMarketingPermissions.Contacts.Create;
+            UpdatePolicyName = EmailMarketingPermissions.Contacts.Edit;
+            DeletePolicyName = EmailMarketingPermissions.Contacts.Delete;
         }
     }
 }

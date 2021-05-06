@@ -1,9 +1,12 @@
 ﻿@page
 @using Abp.EmailMarketing.Localization 
 @using Abp.EmailMarketing.Web.Pages.Contacts 
+@using Abp.EmailMarketing.Permissions; 
 @using Microsoft.Extensions.Localization 
+@using Microsoft.AspNetCore.Authorization; 
 @model IndexModel
 @inject IStringLocalizer<EmailMarketingResource> L
+@inject IAuthorizationService AuthorizationService
 @section scripts
 { 
     <abp-script src="/Pages/Contacts/Index.js" />
@@ -15,10 +18,13 @@
                 <abp-card-title>@L["Contacts"]</abp-card-title>
             </abp-column>
             <abp-column size-md="_6" class="text-right">
-                <abp-button id="NewContactButton"
-                            text="@L["NewContact"].Value"
-                            icon="plus"
-                            button-type="Primary" />
+                @if (await AuthorizationService.IsGrantedAnyAsync(EmailMarketingPermissions.Contacts.Create))
+                {
+                    <abp-button id="NewContactButton"
+                                text="@L["NewContact"].Value"
+                                icon="plus"
+                                button-type="Primary" />
+                }
             </abp-column>
         </abp-row>
     </abp-card-header>

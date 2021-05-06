@@ -37,6 +37,8 @@ using Volo.Abp.UI.Navigation.Urls;
 using Volo.Abp.UI;
 using Volo.Abp.UI.Navigation;
 using Volo.Abp.VirtualFileSystem;
+using Microsoft.AspNetCore.Mvc.RazorPages;
+using Abp.EmailMarketing.Permissions;
 
 namespace Abp.EmailMarketing.Web
 {
@@ -85,6 +87,13 @@ namespace Abp.EmailMarketing.Web
             ConfigureNavigationServices();
             ConfigureAutoApiControllers();
             ConfigureSwaggerServices(context.Services);
+
+            Configure<RazorPagesOptions>(options =>
+            {
+                options.Conventions.AuthorizePage("/Contacts/Index", EmailMarketingPermissions.Contacts.Default);
+                options.Conventions.AuthorizePage("/Contacts/CreateModal", EmailMarketingPermissions.Contacts.Create);
+                options.Conventions.AuthorizePage("/Contacts/EditModal", EmailMarketingPermissions.Contacts.Edit);
+            });
         }
 
         private void ConfigureUrls(IConfiguration configuration)

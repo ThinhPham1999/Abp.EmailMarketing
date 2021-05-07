@@ -8,6 +8,8 @@ namespace Abp.EmailMarketing.Contacts
     public class CreateUpdateContactDto
     {
         [Required]
+        public Guid GroupId { get; set; }
+        [Required]
         [RegularExpression("^[a-zA-Z0-9_\\.-]+@([a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}$", ErrorMessage = "Email is not valid")]
         public string Email { get; set; }
         [Required]
@@ -25,5 +27,6 @@ namespace Abp.EmailMarketing.Contacts
         public int Status { get; set; }
         [Required]
         public ContactType Type { get; set; } = ContactType.Group01;
+        
     }
 }

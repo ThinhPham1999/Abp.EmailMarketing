@@ -4,15 +4,17 @@ using Abp.EmailMarketing.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Volo.Abp.EntityFrameworkCore;
 
 namespace Abp.EmailMarketing.Migrations
 {
     [DbContext(typeof(EmailMarketingMigrationsDbContext))]
-    partial class EmailMarketingMigrationsDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210507015459_Added_GroupId_To_Contact")]
+    partial class Added_GroupId_To_Contact
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

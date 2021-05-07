@@ -15,6 +15,10 @@ namespace Abp.EmailMarketing.Web
 
             CreateMap<GroupDto, Pages.GroupContacts.EditModalModel.EditGroupViewModel>();
             CreateMap<Pages.GroupContacts.EditModalModel.EditGroupViewModel, UpdateGroupDto>();
+
+            CreateMap<Pages.Contacts.CreateModalModel.CreateContactViewModel, CreateUpdateContactDto>();
+            CreateMap<ContactDto, Pages.Contacts.EditModalModel.EditContactViewModel>();
+            CreateMap<Pages.Contacts.EditModalModel.EditContactViewModel, CreateUpdateContactDto>();
         }
     }
 }

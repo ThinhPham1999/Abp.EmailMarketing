@@ -49,6 +49,11 @@
                     data: "email"
                 },
                 {
+                    title: l('Group'),
+                    data: "groupName"
+                }
+                ,
+                {
                     title: l('FirstName'),
                     data: "firstName"
                 },
@@ -56,13 +61,7 @@
                     title: l('LastName'),
                     data: "lastName"
                 },
-                {
-                    title: l('Type'),
-                    data: "type",
-                    render: function (data) {
-                        return l('Enum:ContactType:' + data);
-                    }
-                },
+                
                 {
                     title: l('DateOfBirth'),
                     data: "dateOfBirth",

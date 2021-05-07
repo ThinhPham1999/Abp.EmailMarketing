@@ -27,12 +27,34 @@ namespace Abp.EmailMarketing
 
         public async Task SeedAsync(DataSeedContext context)
         {
+            if (await _contactRepository.GetCountAsync() > 0)
+            {
+                return;
+            }
+
+            //Add group to db
+            
+             var group03 = await _groupRepository.InsertAsync(
+                    await _groupManager.CreateAsync(
+                        "Group03",
+                        "This is group 3"
+                    )
+                );
+
+              var group04 = await _groupRepository.InsertAsync(
+                   await _groupManager.CreateAsync(
+                       "Group04",
+                       "This is group 4"
+                   )
+               );
+
             //Add contact to db
             if (await _contactRepository.GetCountAsync() <= 0)
             {
                 await _contactRepository.InsertAsync(
                     new Contact
                     {
+                        GroupId = group03.Id,
                         Email = "thinhphu1234567@gmail.com",
                         FirstName = "Pham",
                         LastName = "Thinh",
@@ -46,6 +68,7 @@ namespace Abp.EmailMarketing
                 await _contactRepository.InsertAsync(
                     new Contact
                     {
+                        GroupId = group04.Id,
                         Email = "beni09082004@gmail.com",
                         FirstName = "Bich",
                         LastName = "Tram",
@@ -57,23 +80,7 @@ namespace Abp.EmailMarketing
                 );
             }
 
-            //Add group to db
-            if (await _groupRepository.CountAsync() <= 0)
-            {
-                await _groupRepository.InsertAsync(
-                    await _groupManager.CreateAsync(
-                        "Group01",
-                        "This is group 1"
-                    )
-                );
-
-                await _groupRepository.InsertAsync(
-                   await _groupManager.CreateAsync(
-                       "Group02",
-                       "This is group 2"
-                   )
-               );
-            }
+            
 
         }
     }

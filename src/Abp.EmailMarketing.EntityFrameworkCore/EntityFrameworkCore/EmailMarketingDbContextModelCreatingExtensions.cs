@@ -24,6 +24,9 @@ namespace Abp.EmailMarketing.EntityFrameworkCore
                 c.Property(x => x.PhoneNumber).HasColumnType("nvarchar(50)");
                 c.Property(x => x.DateOfBirth).HasColumnType("datetime2");
                 c.Property(x => x.Type).IsRequired();
+
+                //Add relation
+                c.HasOne<Group>().WithMany().HasForeignKey(x => x.GroupId).IsRequired();
             });
 
             builder.Entity<Group>(g =>

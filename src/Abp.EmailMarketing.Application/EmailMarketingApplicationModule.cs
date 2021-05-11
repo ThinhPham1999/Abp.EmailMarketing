@@ -1,8 +1,14 @@
-﻿using Volo.Abp.Account;
+﻿using Abp.EmailMarketing.MultiTenancy;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
+using Volo.Abp;
+using Volo.Abp.Account;
 using Volo.Abp.AutoMapper;
+using Volo.Abp.Emailing;
 using Volo.Abp.FeatureManagement;
 using Volo.Abp.Identity;
 using Volo.Abp.Modularity;
+using Volo.Abp.MultiTenancy;
 using Volo.Abp.PermissionManagement;
 using Volo.Abp.SettingManagement;
 using Volo.Abp.TenantManagement;

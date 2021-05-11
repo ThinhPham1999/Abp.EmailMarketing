@@ -1,0 +1,35 @@
+﻿@page
+@using Abp.EmailMarketing.Localization
+@using Abp.EmailMarketing.Web.Pages.Campaigns
+@using Abp.EmailMarketing.Permissions;
+@using Microsoft.Extensions.Localization
+@using Microsoft.AspNetCore.Authorization;
+@model IndexModel
+@inject IStringLocalizer<EmailMarketingResource> L
+@inject IAuthorizationService AuthorizationService
+@section scripts
+{
+    <abp-script src="/Pages/Campaigns/Index.js" />
+}
+<abp-card>
+    <abp-card-header>
+        <abp-row>
+            <abp-column size-md="_6">
+                <abp-card-title>@L["Campaigns"]</abp-card-title>
+            </abp-column>
+            <abp-column size-md="_6" class="text-right">
+                    <abp-button id="NewContactButton"
+                                text="@L["NewCampaign"].Value"
+                                icon="plus"
+                                button-type="Primary" />
+            </abp-column>
+        </abp-row>
+    </abp-card-header>
+    <abp-card-body>
+        <abp-table striped-rows="true" id="CampaignsTable"></abp-table>
+    </abp-card-body>
+
+
+
+</abp-card>
+

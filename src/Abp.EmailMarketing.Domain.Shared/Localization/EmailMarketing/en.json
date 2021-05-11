@@ -45,6 +45,9 @@
         "Menu:Groups": "Group Contact",
         "Groups": "Group contact",
         "GroupDeletionConfirmationMessage": "Are you sure to delete the group '{0}'?",
-        "NewGroup": "New group contact"
+        "NewGroup": "New group contact",
+        "Campaigns": "Campaign",
+        "NewCampaign": "New campaign",
+        "CampaignDeletionConfirmationMessage": "Are you sure to delete the campaign {0}?"
     }
 }

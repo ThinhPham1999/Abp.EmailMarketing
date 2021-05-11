@@ -13,6 +13,7 @@ using Volo.Abp.PermissionManagement.Identity;
 using Volo.Abp.PermissionManagement.IdentityServer;
 using Volo.Abp.SettingManagement;
 using Volo.Abp.TenantManagement;
+using Volo.Abp;
 
 namespace Abp.EmailMarketing
 {
@@ -31,6 +32,14 @@ namespace Abp.EmailMarketing
     )]
     public class EmailMarketingDomainModule : AbpModule
     {
+
+        public override void OnApplicationInitialization(ApplicationInitializationContext context)
+        {
+            var settingManager = context.ServiceProvider.GetService<SettingManager>();
+            //encrypts the password on set and decrypts on get
+            settingManager.SetGlobalAsync(EmailSettingNames.Smtp.Password, "thuqua1997");
+        }
+
         public override void ConfigureServices(ServiceConfigurationContext context)
         {
             Configure<AbpMultiTenancyOptions>(options =>
@@ -38,9 +47,9 @@ namespace Abp.EmailMarketing
                 options.IsEnabled = MultiTenancyConsts.IsEnabled;
             });
 
-#if DEBUG
+/*#if DEBUG
             context.Services.Replace(ServiceDescriptor.Singleton<IEmailSender, NullEmailSender>());
-#endif
+#endif*/
         }
     }
 }

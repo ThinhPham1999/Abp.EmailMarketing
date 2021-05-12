@@ -1,4 +1,5 @@
-﻿using Abp.EmailMarketing.GroupContacts;
+﻿using Abp.EmailMarketing.Contacts;
+using Abp.EmailMarketing.GroupContacts;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,15 +15,41 @@ namespace Abp.EmailMarketing.Campaigns
          EmailMarketingAppService, ICampaignAppService
     {
         private readonly ICampaignRepository _campaignRepository;
+        private readonly CampaignManager _campaignManager;
+        private readonly IGroupRepository _groupRepository;
 
-        public CampaignAppService(ICampaignRepository campaignRepository)
+        public CampaignAppService(ICampaignRepository campaignRepository, CampaignManager campaignManager,
+            IGroupRepository groupRepository)
         {
             _campaignRepository = campaignRepository;
+            _campaignManager = campaignManager;
+            _groupRepository = groupRepository;
         }
 
-        public Task<CampaignDto> CreateAsync(CreateUpdateCampaignDto input)
+        public async Task<CampaignDto> CreateAsync(CreateUpdateCampaignDto input)
         {
-            throw new NotImplementedException();
+            List<Group> groups = new List<Group>();
+            //var group = _groupRepository.GetAsync();
+            if (input.GroupId.Count > 0)
+            {
+                foreach(Guid groupDto in input.GroupId)
+                {
+                    var group = await _groupRepository.GetAsync(groupDto);
+                    groups.Add(group);
+                }
+            }
+            var campaign = await _campaignManager.CreateAsync(
+               input.Name,
+               input.Description,
+               input.Schedule,
+               input.Title,
+               input.Content,
+               groups
+           );
+
+            await _campaignRepository.InsertAsync(campaign);
+
+            return ObjectMapper.Map<Campaign, CampaignDto>(campaign);
         }
 
         public Task DeleteAsync(Guid id)

@@ -1,4 +1,5 @@
-﻿using JetBrains.Annotations;
+﻿using Abp.EmailMarketing.GroupContacts;
+using JetBrains.Annotations;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -53,6 +54,28 @@ namespace Abp.EmailMarketing.Campaigns
             }
 
             campaign.ChangeName(newName);
+        }
+
+        public async Task<Campaign> CreateAsync(
+            [NotNull] string name,
+            string description, DateTime dateTime, string title, string content, List<Group> groups)
+        {
+            Check.NotNullOrWhiteSpace(name, nameof(name));
+            var existingGroup = await _campaignRepository.FindByNameAsync(name);
+            if (existingGroup != null)
+            {
+                throw new CampaignAlreadyExistsException(name);
+            }
+
+            return new Campaign(
+                GuidGenerator.Create(),
+                name,
+                description,
+                title,
+                content,
+                dateTime,
+                groups
+            );
         }
     }
 }

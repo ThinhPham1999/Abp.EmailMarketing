@@ -41,6 +41,24 @@ namespace Abp.EmailMarketing.Campaigns
             Schedule = schedule;
         }
 
+        internal Campaign(
+            Guid id,
+            [NotNull] string name,
+            string description,
+            string title,
+            string content,
+            DateTime schedule,
+            List<Group> groups)
+            : base(id)
+        {
+            SetName(name);
+            Description = description;
+            Title = title;
+            Content = content;
+            Schedule = schedule;
+            Groups = groups;
+        }
+
         internal Campaign ChangeName([NotNull] string name)
         {
             SetName(name);

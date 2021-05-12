@@ -15,6 +15,7 @@ namespace Abp.EmailMarketing
             CreateMap<Group, GroupLookupDto>();
 
             CreateMap<Campaign, CampaignDto>();
+            CreateMap<CreateUpdateCampaignDto, Campaign>();
         }
     }
 }

@@ -22,17 +22,17 @@ namespace Abp.EmailMarketing.Campaigns
         private readonly CampaignManager _campaignManager;
         private readonly IGroupRepository _groupRepository;
         private readonly EmailService _emailService;
-        private readonly IContactAppService _contactAppService;
+        private readonly IContactRepository _contactRepository;
 
         public CampaignAppService(ICampaignRepository campaignRepository, CampaignManager campaignManager,
             IGroupRepository groupRepository, EmailService emailService,
-            IContactAppService contactAppService)
+            IContactRepository contactRepository)
         {
             _campaignRepository = campaignRepository;
             _campaignManager = campaignManager;
             _groupRepository = groupRepository;
             _emailService = emailService;
-            _contactAppService = contactAppService;
+            _contactRepository = contactRepository;
         }
 
         public async Task<CampaignDto> CreateAsync(CreateUpdateCampaignDto input)
@@ -59,7 +59,11 @@ namespace Abp.EmailMarketing.Campaigns
             await _campaignRepository.InsertAsync(campaign);
             foreach(Group group in campaign.Groups)
             {
-                
+                var contacts = _contactRepository.GetListAsync().Result;
+                foreach(Contact c in contacts)
+                {
+                    await _emailService.SendAsync(c.Email, input.Content, input.Title);
+                }
             }
 
             return ObjectMapper.Map<Campaign, CampaignDto>(campaign);

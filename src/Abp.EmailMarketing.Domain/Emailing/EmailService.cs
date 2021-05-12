@@ -21,19 +21,19 @@ namespace Abp.EmailMarketing.Emailing
             _templateRenderer = templateRenderer;
         }
 
-        public async Task SendAsync(string targetEmail)
+        public async Task SendAsync(string targetEmail, string content, string title)
         {
             var emailBody = await _templateRenderer.RenderAsync(
                 StandardEmailTemplates.Message,
                 new
                 {
-                    message = "ABP Framework provides IEmailSender service that is used to send emails."
+                    message = content
                 }
             );
 
             await _emailSender.SendAsync(
                 targetEmail,
-                "Subject",
+                title,
                 emailBody
             );
         }

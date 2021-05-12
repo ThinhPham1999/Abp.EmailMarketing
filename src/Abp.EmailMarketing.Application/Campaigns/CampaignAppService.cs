@@ -1,5 +1,8 @@
 ﻿using Abp.EmailMarketing.Contacts;
+using Abp.EmailMarketing.Emailing;
 using Abp.EmailMarketing.GroupContacts;
+using Abp.EmailMarketing.Permissions;
+using Microsoft.AspNetCore.Authorization;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,19 +14,25 @@ using Volo.Abp.Domain.Repositories;
 
 namespace Abp.EmailMarketing.Campaigns
 {
+    [Authorize(EmailMarketingPermissions.Campaign.Default)]
     public class CampaignAppService :
          EmailMarketingAppService, ICampaignAppService
     {
         private readonly ICampaignRepository _campaignRepository;
         private readonly CampaignManager _campaignManager;
         private readonly IGroupRepository _groupRepository;
+        private readonly EmailService _emailService;
+        private readonly IContactAppService _contactAppService;
 
         public CampaignAppService(ICampaignRepository campaignRepository, CampaignManager campaignManager,
-            IGroupRepository groupRepository)
+            IGroupRepository groupRepository, EmailService emailService,
+            IContactAppService contactAppService)
         {
             _campaignRepository = campaignRepository;
             _campaignManager = campaignManager;
             _groupRepository = groupRepository;
+            _emailService = emailService;
+            _contactAppService = contactAppService;
         }
 
         public async Task<CampaignDto> CreateAsync(CreateUpdateCampaignDto input)
@@ -48,6 +57,10 @@ namespace Abp.EmailMarketing.Campaigns
            );
 
             await _campaignRepository.InsertAsync(campaign);
+            foreach(Group group in campaign.Groups)
+            {
+                
+            }
 
             return ObjectMapper.Map<Campaign, CampaignDto>(campaign);
         }

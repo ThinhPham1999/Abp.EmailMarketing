@@ -48,6 +48,11 @@
         "NewGroup": "New group contact",
         "Campaigns": "Campaign",
         "NewCampaign": "New campaign",
-        "CampaignDeletionConfirmationMessage": "Are you sure to delete the campaign {0}?"
+        "CampaignDeletionConfirmationMessage": "Are you sure to delete the campaign {0}?",
+        "Permission:Campaigns": "Campaign Management",
+        "Permission:Campaigns.Create": "Creating new campaign",
+        "Permission:Campaigns.Edit": "Editing the campaign",
+        "Permission:Campaigns.Delete": "Deleting the campaign",
+        "Menu:Campaigns": "Campaign" 
     }
 }

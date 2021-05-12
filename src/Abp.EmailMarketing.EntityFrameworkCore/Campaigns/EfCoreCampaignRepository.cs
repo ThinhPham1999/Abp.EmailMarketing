@@ -38,7 +38,6 @@ namespace Abp.EmailMarketing.Campaigns
                 .Skip(skipCount)
                 .Take(maxResultCount)
                 .ToListAsync();
-
         }
     }
 }

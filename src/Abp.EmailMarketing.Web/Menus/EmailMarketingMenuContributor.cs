@@ -88,6 +88,15 @@ namespace Abp.EmailMarketing.Web.Menus
                 ));
             }
 
+            if (await context.IsGrantedAsync(EmailMarketingPermissions.Campaign.Default))
+            {
+                emailMarketingMenu.AddItem(new ApplicationMenuItem(
+                    "EmailMarketing.Campaigns",
+                    l["Menu:Campaigns"],
+                    url: "/Campaigns"
+                ));
+            }
+
         }
     }
 }

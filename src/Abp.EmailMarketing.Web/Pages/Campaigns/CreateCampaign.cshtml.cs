@@ -6,6 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Abp.EmailMarketing.Campaigns;
 using Abp.EmailMarketing.Contacts;
+using Abp.EmailMarketing.Emailing;
 using Abp.EmailMarketing.GroupContacts;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -20,13 +21,17 @@ namespace Abp.EmailMarketing.Web.Pages.Campaigns
         public CreateCampaignViewModel Campaign { get; set; }
         public List<SelectListItem> Groups { get; set; }
 
+        private readonly EmailService _emailService;
+
         private readonly ICampaignAppService _campaignAppService;
         private readonly IContactAppService _contactAppService;
 
-        public CreateCampaignModel(ICampaignAppService campaignAppService, IContactAppService contactAppService)
+        public CreateCampaignModel(ICampaignAppService campaignAppService, IContactAppService contactAppService,
+            EmailService emailService)
         {
             _campaignAppService = campaignAppService;
             _contactAppService = contactAppService;
+            _emailService = emailService;
         }
 
         public async void OnGetAsync()
@@ -40,6 +45,7 @@ namespace Abp.EmailMarketing.Web.Pages.Campaigns
         {
             var dto = ObjectMapper.Map<CreateCampaignViewModel, CreateUpdateCampaignDto>(Campaign);
             await _campaignAppService.CreateAsync(dto);
+            
             return NoContent();
         }
 

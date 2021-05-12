@@ -1,4 +1,5 @@
-﻿using JetBrains.Annotations;
+﻿using Abp.EmailMarketing.Campaigns;
+using JetBrains.Annotations;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,6 +14,8 @@ namespace Abp.EmailMarketing.GroupContacts
     {
         public string Name { get; private set; }
         public string Description { get; set; }
+
+        public virtual IList<Campaign> Campaigns { get; set; }
 
         private Group()
         {

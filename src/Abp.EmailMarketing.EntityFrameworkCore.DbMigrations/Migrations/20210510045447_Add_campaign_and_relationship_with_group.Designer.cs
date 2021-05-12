@@ -4,15 +4,17 @@ using Abp.EmailMarketing.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Volo.Abp.EntityFrameworkCore;
 
 namespace Abp.EmailMarketing.Migrations
 {
     [DbContext(typeof(EmailMarketingMigrationsDbContext))]
-    partial class EmailMarketingMigrationsDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210510045447_Add_campaign_and_relationship_with_group")]
+    partial class Add_campaign_and_relationship_with_group
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -87,6 +89,21 @@ namespace Abp.EmailMarketing.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("AppCampaign");
+                });
+
+            modelBuilder.Entity("Abp.EmailMarketing.Campaigns.GroupCampaign", b =>
+                {
+                    b.Property<Guid>("CampaignId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("GroupId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("CampaignId", "GroupId");
+
+                    b.HasIndex("GroupId");
+
+                    b.ToTable("AppGroupCampaign");
                 });
 
             modelBuilder.Entity("Abp.EmailMarketing.Contacts.Contact", b =>
@@ -217,21 +234,6 @@ namespace Abp.EmailMarketing.Migrations
                     b.HasIndex("Name");
 
                     b.ToTable("AppGroup");
-                });
-
-            modelBuilder.Entity("CampaignGroup", b =>
-                {
-                    b.Property<Guid>("CampaignsId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("GroupsId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("CampaignsId", "GroupsId");
-
-                    b.HasIndex("GroupsId");
-
-                    b.ToTable("CampaignGroup");
                 });
 
             modelBuilder.Entity("Volo.Abp.AuditLogging.AuditLog", b =>
@@ -2150,26 +2152,30 @@ namespace Abp.EmailMarketing.Migrations
                     b.ToTable("AbpTenantConnectionStrings");
                 });
 
+            modelBuilder.Entity("Abp.EmailMarketing.Campaigns.GroupCampaign", b =>
+                {
+                    b.HasOne("Abp.EmailMarketing.Campaigns.Campaign", "Campaign")
+                        .WithMany("GroupCampaigns")
+                        .HasForeignKey("CampaignId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Abp.EmailMarketing.GroupContacts.Group", "Group")
+                        .WithMany("GroupCampaigns")
+                        .HasForeignKey("GroupId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Campaign");
+
+                    b.Navigation("Group");
+                });
+
             modelBuilder.Entity("Abp.EmailMarketing.Contacts.Contact", b =>
                 {
                     b.HasOne("Abp.EmailMarketing.GroupContacts.Group", null)
                         .WithMany()
                         .HasForeignKey("GroupId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("CampaignGroup", b =>
-                {
-                    b.HasOne("Abp.EmailMarketing.Campaigns.Campaign", null)
-                        .WithMany()
-                        .HasForeignKey("CampaignsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Abp.EmailMarketing.GroupContacts.Group", null)
-                        .WithMany()
-                        .HasForeignKey("GroupsId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
@@ -2449,6 +2455,16 @@ namespace Abp.EmailMarketing.Migrations
                         .HasForeignKey("TenantId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("Abp.EmailMarketing.Campaigns.Campaign", b =>
+                {
+                    b.Navigation("GroupCampaigns");
+                });
+
+            modelBuilder.Entity("Abp.EmailMarketing.GroupContacts.Group", b =>
+                {
+                    b.Navigation("GroupCampaigns");
                 });
 
             modelBuilder.Entity("Volo.Abp.AuditLogging.AuditLog", b =>

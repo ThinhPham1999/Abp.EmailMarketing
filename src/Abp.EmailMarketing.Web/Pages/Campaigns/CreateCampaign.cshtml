@@ -1,0 +1,11 @@
+﻿@page
+@using Abp.EmailMarketing.Localization
+@using Abp.EmailMarketing.Web.Pages.Campaigns
+@using Microsoft.Extensions.Localization
+@using Volo.Abp.AspNetCore.Mvc.UI.Bootstrap.TagHelpers.Modal
+@model CreateCampaignModel
+@inject IStringLocalizer<EmailMarketingResource> L
+
+<h2>Create new Campaign</h2>
+<abp-dynamic-form abp-model="Campaign" asp-page="/Campaigns/CreateCampaign" submit-button="true">
+</abp-dynamic-form>

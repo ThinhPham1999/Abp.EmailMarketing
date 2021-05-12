@@ -1,4 +1,5 @@
-﻿using Abp.EmailMarketing.Contacts;
+﻿using Abp.EmailMarketing.Campaigns;
+using Abp.EmailMarketing.Contacts;
 using Abp.EmailMarketing.GroupContacts;
 using Microsoft.EntityFrameworkCore;
 using Volo.Abp;
@@ -35,6 +36,16 @@ namespace Abp.EmailMarketing.EntityFrameworkCore
                 g.ConfigureByConvention();
                 g.Property(x => x.Name).IsRequired().HasMaxLength(GroupConsts.MaxNameLength);
                 g.HasIndex(x => x.Name);
+            });
+
+            builder.Entity<Campaign>(c =>
+            {
+                c.ToTable(EmailMarketingConsts.DbTablePrefix + "Campaign", EmailMarketingConsts.DbSchema);
+                c.ConfigureByConvention();
+                c.Property(x => x.Name).IsRequired().HasMaxLength(100);
+                c.Property(x => x.Content).HasColumnType("nvarchar(max)");
+                c.Property(x => x.Title).HasColumnType("nvarchar(100)");
+                c.Property(x => x.Schedule).HasColumnType("datetime2");
             });
         }
     }

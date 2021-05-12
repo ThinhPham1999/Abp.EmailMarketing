@@ -7,6 +7,7 @@ using Volo.Abp.Identity;
 using Volo.Abp.Users.EntityFrameworkCore;
 using Abp.EmailMarketing.Contacts;
 using Abp.EmailMarketing.GroupContacts;
+using Abp.EmailMarketing.Campaigns;
 
 namespace Abp.EmailMarketing.EntityFrameworkCore
 {
@@ -25,6 +26,8 @@ namespace Abp.EmailMarketing.EntityFrameworkCore
         public DbSet<AppUser> Users { get; set; }
         public DbSet<Contact> Contacts { get; set; }
         public DbSet<Group> Groups { get; set; }
+
+        public DbSet<Campaign> Campaigns { get; set; }
 
         /* Add DbSet properties for your Aggregate Roots / Entities here.
          * Also map them inside EmailMarketingDbContextModelCreatingExtensions.ConfigureEmailMarketing

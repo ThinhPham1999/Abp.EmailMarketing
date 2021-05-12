@@ -1,4 +1,5 @@
-﻿using Abp.EmailMarketing.Contacts;
+﻿using Abp.EmailMarketing.Campaigns;
+using Abp.EmailMarketing.Contacts;
 using Abp.EmailMarketing.GroupContacts;
 using AutoMapper;
 
@@ -19,6 +20,8 @@ namespace Abp.EmailMarketing.Web
             CreateMap<Pages.Contacts.CreateModalModel.CreateContactViewModel, CreateUpdateContactDto>();
             CreateMap<ContactDto, Pages.Contacts.EditModalModel.EditContactViewModel>();
             CreateMap<Pages.Contacts.EditModalModel.EditContactViewModel, CreateUpdateContactDto>();
+
+            CreateMap<Pages.Campaigns.CreateCampaignModel.CreateCampaignViewModel, CreateUpdateCampaignDto>();
         }
     }
 }

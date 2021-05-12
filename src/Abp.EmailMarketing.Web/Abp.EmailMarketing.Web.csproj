@@ -23,6 +23,11 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Content Remove="Pages\Campaigns\Index.cshtml" />
+    <Content Remove="Pages\Email\Index.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Update="Pages\**\*.js">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
@@ -49,6 +54,24 @@
     <PackageReference Include="Volo.Abp.Account.Web.IdentityServer" Version="4.3.0" />
     <PackageReference Include="Volo.Abp.TenantManagement.Web" Version="4.3.0" />
     <PackageReference Include="Volo.Abp.SettingManagement.Web" Version="4.3.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <UpToDateCheckInput Remove="Pages\Email\Index.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <_ContentIncludedByDefault Remove="Pages\Campaigns\Index.cshtml" />
+    <_ContentIncludedByDefault Remove="Pages\Email\Index.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="Pages\Campaigns\Index.cshtml" />
+    <None Include="Pages\Email\Index.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <UpToDateCheckInput Remove="Pages\Campaigns\Index.cshtml" />
   </ItemGroup>
 
 </Project>

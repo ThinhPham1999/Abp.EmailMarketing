@@ -27,11 +27,6 @@ namespace Abp.EmailMarketing.Web.Pages.Email
             model = new BViewModel();
         }
 
-        public async Task<IActionResult> OnPostAsync()
-        {
-            await _emailService.SendAsync("beni09082004@gmail.com");
-            return Page();
-        }
 
         public class BViewModel
         {

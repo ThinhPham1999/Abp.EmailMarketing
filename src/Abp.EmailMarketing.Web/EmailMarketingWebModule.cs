@@ -39,6 +39,7 @@ using Volo.Abp.UI.Navigation;
 using Volo.Abp.VirtualFileSystem;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Abp.EmailMarketing.Permissions;
+using Abp.AspNetCore.Mvc.UI.Theme.AdminLTE;
 
 namespace Abp.EmailMarketing.Web
 {
@@ -50,7 +51,8 @@ namespace Abp.EmailMarketing.Web
         typeof(AbpIdentityWebModule),
         typeof(AbpSettingManagementWebModule),
         typeof(AbpAccountWebIdentityServerModule),
-        typeof(AbpAspNetCoreMvcUiBasicThemeModule),
+        //typeof(AbpAspNetCoreMvcUiBasicThemeModule),
+        typeof(AbpAspNetCoreMvcUiAdminLTEThemeModule),
         typeof(AbpAspNetCoreAuthenticationJwtBearerModule),
         typeof(AbpTenantManagementWebModule),
         typeof(AbpAspNetCoreSerilogModule),

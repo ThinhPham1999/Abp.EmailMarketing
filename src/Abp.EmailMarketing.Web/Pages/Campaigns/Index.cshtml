@@ -18,7 +18,12 @@
                 <abp-card-title>@L["Campaigns"]</abp-card-title>
             </abp-column>
             <abp-column size-md="_6" class="text-right">
-                <a asp-page="/Campaigns/CreateCampaign" icon="plus" class="btn btn-primary btn-sm">Create Campaign</a>
+                <a asp-page="/Campaigns/CreateCampaign" icon="plus" class="btn btn-primary btn-sm">
+                    <abp-button id="NewCampaignButton"
+                                text="New campaign"
+                                icon="plus"
+                                button-type="Primary" />
+                </a>
             </abp-column>
         </abp-row>
     </abp-card-header>

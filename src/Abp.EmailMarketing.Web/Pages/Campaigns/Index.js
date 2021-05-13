@@ -10,7 +10,7 @@
             scrollX: true,
             ajax: abp.libs.datatables.createAjax(abp.emailMarketing.campaigns.campaign.getList),
             columnDefs: [
-                {
+                /*{
                     title: l('Actions'),
                     rowAction: {
                         items:
@@ -40,7 +40,7 @@
 
                             ]
                     }
-                },
+                },*/
                 {
                     title: l('Name'),
                     data: "name"

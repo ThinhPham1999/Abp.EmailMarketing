@@ -38,6 +38,7 @@
 
   <ItemGroup>
     <PackageReference Include="Abp.AspNetCore.Mvc.UI.Theme.AdminLTE" Version="0.7.2" />
+    <PackageReference Include="ClosedXML" Version="0.95.4" />
     <PackageReference Include="Serilog.AspNetCore" Version="4.1.0" />
     <PackageReference Include="Serilog.Sinks.Async" Version="1.4.0" />
   </ItemGroup>

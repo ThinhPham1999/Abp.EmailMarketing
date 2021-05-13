@@ -1,0 +1,29 @@
+﻿@page
+@using Microsoft.AspNetCore.Mvc.Localization
+@using Abp.EmailMarketing.Localization
+@using Volo.Abp.Users
+@using Abp.EmailMarketing.Web.Pages.Contacts
+@model ImportContactModel
+@inject IHtmlLocalizer<EmailMarketingResource> L
+
+@*@section styles {
+    <abp-style-bundle>
+        <abp-style src="/Pages/Index.css" />
+    </abp-style-bundle>
+}*@
+@section scripts {
+    <abp-script src="/Pages/Contacts/ImportContact.js" />
+}
+
+<abp-card>
+    <abp-card-body>
+        <h5>Select excel file to Import</h5>
+        <form method="POST" enctype="multipart/form-data" asp-page-handler="Import">
+            <input type="file" name="files" id="fileupload" />
+            <abp-button button-type="Primary" id="btnupload" >Import contact from excel</abp-button>
+        </form>
+        <div class="row m-2">
+            <div id="divPrint"></div>
+        </div>
+    </abp-card-body>
+</abp-card>

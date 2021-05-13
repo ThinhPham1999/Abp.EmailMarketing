@@ -1,4 +1,5 @@
 ﻿using Abp.EmailMarketing.GroupContacts;
+using Abp.EmailMarketing.Contacts;
 using Abp.EmailMarketing.Permissions;
 using Microsoft.AspNetCore.Authorization;
 using System;
@@ -20,7 +21,7 @@ namespace Abp.EmailMarketing.Contacts
             Contact, //The Contact entity
             ContactDto, //Used to show contacts
             Guid, //Primary key of the contact entity
-            PagedAndSortedResultRequestDto, //Used for paging/sorting
+            GetContactListDto, //Used for paging/sorting
             CreateUpdateContactDto>, //Used to create/update a contact
         IContactAppService //implement the IContactAppService
     {
@@ -62,21 +63,35 @@ namespace Abp.EmailMarketing.Contacts
             return contactDto;
         }
 
-        public override async Task<PagedResultDto<ContactDto>> GetListAsync(PagedAndSortedResultRequestDto input)
+        public override async Task<PagedResultDto<ContactDto>> GetListAsync(GetContactListDto input)
         {
             //Get the IQueryable<Contact> from the repository
             var queryable = await Repository.GetQueryableAsync();
 
-            //Prepare a query to join contacts and groups
             var query = from contact in queryable
                         join groups in _groupRepository on contact.GroupId equals groups.Id
+                        //where contact.Email == input.Filter
                         select new { contact, groups };
+            //Prepare a query to join contacts and groups
+            if (!input.Filter.IsNullOrWhiteSpace())
+            {
+                query = from contact in queryable
+                        join groups in _groupRepository on contact.GroupId equals groups.Id
+                        where contact.Email.ToUpper().Contains(input.Filter.ToUpper())
+                        select new { contact, groups };
+            }
+
+            //Get the total count with another query
+            var totalCount = input.Filter == null ?
+                await Repository.GetCountAsync() :
+                AsyncExecuter.ToListAsync(query).Result.Count;
 
             //Paging
             query = query
                 .OrderBy(NormalizeSorting(input.Sorting))
                 .Skip(input.SkipCount)
                 .Take(input.MaxResultCount);
+                
 
             //Execute the query and get a list
             var queryResult = await AsyncExecuter.ToListAsync(query);
@@ -89,8 +104,6 @@ namespace Abp.EmailMarketing.Contacts
                 return contactDto;
             }).ToList();
 
-            //Get the total count with another query
-            var totalCount = await Repository.GetCountAsync();
 
             return new PagedResultDto<ContactDto>(
                 totalCount,

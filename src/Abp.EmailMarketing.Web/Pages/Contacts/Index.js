@@ -9,7 +9,8 @@
             serverSide: true,
             paging: true,
             order: [[1, "asc"]],
-            searching: false,
+            filter: true,
+            "searching": true,
             scrollX: true,
             ajax: abp.libs.datatables.createAjax(abp.emailMarketing.contacts.contact.getList),
             columnDefs: [

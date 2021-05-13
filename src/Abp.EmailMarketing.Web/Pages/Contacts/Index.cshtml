@@ -1,15 +1,16 @@
 ﻿@page
-@using Abp.EmailMarketing.Localization 
-@using Abp.EmailMarketing.Web.Pages.Contacts 
-@using Abp.EmailMarketing.Permissions; 
-@using Microsoft.Extensions.Localization 
-@using Microsoft.AspNetCore.Authorization; 
+@using Abp.EmailMarketing.Localization
+@using Abp.EmailMarketing.Web.Pages.Contacts
+@using Abp.EmailMarketing.Permissions;
+@using Microsoft.Extensions.Localization
+@using Microsoft.AspNetCore.Authorization;
 @model IndexModel
 @inject IStringLocalizer<EmailMarketingResource> L
 @inject IAuthorizationService AuthorizationService
 @section scripts
-{ 
+{
     <abp-script src="/Pages/Contacts/Index.js" />
+    <abp-style src="/libs/myStyle/Index.css" />
 }
 <abp-card>
     <abp-card-header>
@@ -32,7 +33,7 @@
         <abp-table striped-rows="true" id="ContactsTable"></abp-table>
     </abp-card-body>
 
-    
+
 
 </abp-card>
 

@@ -75,7 +75,8 @@ namespace Abp.EmailMarketing.Web.Menus
                 emailMarketingMenu.AddItem(new ApplicationMenuItem(
                     "EmailMarketing.Contacts",
                     l["Menu:Contacts"],
-                    url: "/Contacts"
+                    url: "/Contacts",
+                    icon: "fas fa-users"
                 ));
             }
 
@@ -84,7 +85,8 @@ namespace Abp.EmailMarketing.Web.Menus
                 emailMarketingMenu.AddItem(new ApplicationMenuItem(
                     "EmailMarketing.Groups",
                     l["Menu:Groups"],
-                    url: "/GroupContacts"
+                    url: "/GroupContacts",
+                    icon: "fas fa-layer-group"
                 ));
             }
 
@@ -93,7 +95,8 @@ namespace Abp.EmailMarketing.Web.Menus
                 emailMarketingMenu.AddItem(new ApplicationMenuItem(
                     "EmailMarketing.Campaigns",
                     l["Menu:Campaigns"],
-                    url: "/Campaigns"
+                    url: "/Campaigns",
+                    icon: "fas fa-envelope"
                 ));
             }
 

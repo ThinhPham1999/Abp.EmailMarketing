@@ -11,7 +11,7 @@ namespace Abp.EmailMarketing.Contacts
         ICrudAppService<   //Define Crud method
             ContactDto,    //Used to show contact
             Guid,          //Primary key of contact
-            PagedAndSortedResultRequestDto, // Used to paging/sorting
+            GetContactListDto, // Used to paging/sorting
             CreateUpdateContactDto>         // Used to create/update a contact
     {
         Task<ListResultDto<GroupLookupDto>> GetGroupLookupAsync();

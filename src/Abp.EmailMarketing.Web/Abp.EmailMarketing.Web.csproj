@@ -69,6 +69,7 @@
   <ItemGroup>
     <None Include="Pages\Campaigns\Index.cshtml" />
     <None Include="Pages\Email\Index.cshtml" />
+    <None Include="wwwroot\libs\myStyle\Index.css" />
   </ItemGroup>
 
   <ItemGroup>

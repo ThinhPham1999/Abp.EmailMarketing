@@ -20,10 +20,12 @@ namespace Abp.EmailMarketing.Web.Pages.Contacts
         public List<SelectListItem> Groups { get; set; }
 
         private readonly IContactAppService _contactAppService;
+        private readonly IContactRepository _contactRepository;
 
-        public CreateModalModel(IContactAppService contactAppService)
+        public CreateModalModel(IContactAppService contactAppService, IContactRepository contactRepository)
         {
             _contactAppService = contactAppService;
+            _contactRepository = contactRepository;
         }
 
         public async Task OnGetAsync()
@@ -36,6 +38,14 @@ namespace Abp.EmailMarketing.Web.Pages.Contacts
 
         public async Task<IActionResult> OnPostAsync()
         {
+            var contacts = await _contactRepository.GetListAsync();
+            var dul = contacts.Where(c => c.Email.Equals(Contact.Email)).FirstOrDefault();
+            if (dul != null)
+            {
+                ModelState.AddModelError("", "Email is already used");
+                return NoContent();
+            }
+            
             await _contactAppService.CreateAsync(
                 ObjectMapper.Map<CreateContactViewModel, CreateUpdateContactDto>(Contact)    
             );
@@ -74,5 +84,6 @@ namespace Abp.EmailMarketing.Web.Pages.Contacts
 
             public int Status { get; set; }
         }
+
     }
 }

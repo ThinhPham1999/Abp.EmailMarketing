@@ -35,7 +35,7 @@ namespace Abp.EmailMarketing.Web.Menus
                 )
             );
             
-            if (MultiTenancyConsts.IsEnabled)
+            /*if (MultiTenancyConsts.IsEnabled)
             {
                 administration.SetSubItemOrder(TenantManagementMenuNames.GroupName, 1);
             }
@@ -44,7 +44,7 @@ namespace Abp.EmailMarketing.Web.Menus
 #pragma warning disable CS0162 // Unreachable code detected
                 administration.TryRemoveMenuItem(TenantManagementMenuNames.GroupName);
 #pragma warning restore CS0162 // Unreachable code detected
-            }
+            }*/
 
             administration.SetSubItemOrder(IdentityMenuNames.GroupName, 2);
             administration.SetSubItemOrder(SettingManagementMenuNames.GroupName, 3);

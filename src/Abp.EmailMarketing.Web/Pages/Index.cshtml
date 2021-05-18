@@ -16,7 +16,21 @@
         <h1>Welcome to the Application</h1>
         @if (!CurrentUser.IsAuthenticated)
         {
-            <a abp-button="Primary" href="~/Account/Login" ><i class="fa fa-sign-in"></i> @L["Login"]</a>
+            <a abp-button="Primary" href="~/Account/Login"><i class="fa fa-sign-in"></i> @L["Login"]</a>
+        }
+
+        @if (CurrentUser.IsAuthenticated && !CurrentUser.EmailVerified)
+        {
+            <div class="p-2 mb-1 bg-warning text-dark">
+                <h5 class="m-1"><i class="fas fa-email"></i> <strong>User has not NOT been verified by email yet!Please check your email to confirm email</strong></h5>
+            </div>
+        }
+
+        @if (CurrentUser.IsAuthenticated && CurrentUser.EmailVerified)
+        {
+            <div class="p-2 mb-1 bg-success text-white">
+                <h5 class="m-1"><i class="fas fa-email"></i> <strong>User is successfully verified by email!</strong></h5>
+            </div>
         }
     </div>
 

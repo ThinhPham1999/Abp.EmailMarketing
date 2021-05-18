@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Volo.Abp.DependencyInjection;
 using Volo.Abp.Emailing;
 using Volo.Abp.Emailing.Templates;
+using Volo.Abp.Security.Encryption;
 using Volo.Abp.TextTemplating;
 
 namespace Abp.EmailMarketing.Emailing
@@ -14,6 +15,7 @@ namespace Abp.EmailMarketing.Emailing
     {
         private readonly IEmailSender _emailSender;
         private readonly ITemplateRenderer _templateRenderer;
+        /*public IStringEncryptionService _encryptionService { get; set; }*/
 
         public EmailService(IEmailSender emailSender, ITemplateRenderer templateRenderer)
         {
@@ -37,5 +39,12 @@ namespace Abp.EmailMarketing.Emailing
                 emailBody
             );
         }
+
+        public async Task SendEmailAsync()
+        {
+            /*var encryptedGmailPassword = _encryptionService.Encrypt("your-gmail-password-here");*/
+            await _emailSender.SendAsync("recipient-email-here", "Email subject", "This is the email body...");
+        }
+
     }
 }

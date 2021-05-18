@@ -86,7 +86,6 @@ namespace Abp.EmailMarketing
                     );
                 };
             }
-
             
 
             if (await _campaignRepository.GetCountAsync() <= 0)
@@ -115,6 +114,7 @@ namespace Abp.EmailMarketing
                     autoSave: true
                 );
             }
+
         }
     }
 }

@@ -12,7 +12,7 @@ namespace Abp.EmailMarketing.Emails
         public EmailAlreadyExistsException(string emailString) :
             base(EmailMarketingDomainErrorCodes.CampaignAlreadyExists)
         {
-            WithData("name", name);
+            WithData("emailString", emailString);
         }
     }
 }

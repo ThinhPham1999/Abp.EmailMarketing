@@ -53,6 +53,14 @@
         "Permission:Campaigns.Create": "Creating new campaign",
         "Permission:Campaigns.Edit": "Editing the campaign",
         "Permission:Campaigns.Delete": "Deleting the campaign",
-        "Menu:Campaigns": "Campaign" 
+        "Menu:Campaigns": "Campaign",
+        "Emails": "Email Manager",
+        "NewEmail": "Create Email",
+        "EmailDeletionConfirmationMessage": "Are you sure to delete the this email user {0}?",
+        "Permission:Emails": "Email Management",
+        "Permission:Emails.Create": "Creating new email user",
+        "Permission:Emails.Edit": "Editing the email user",
+        "Permission:Emails.Delete": "Deleting the email user",
+        "Menu:Emails": "Email User"
     }
 }

@@ -8,6 +8,7 @@ using Volo.Abp.Users.EntityFrameworkCore;
 using Abp.EmailMarketing.Contacts;
 using Abp.EmailMarketing.GroupContacts;
 using Abp.EmailMarketing.Campaigns;
+using Abp.EmailMarketing.Emails;
 
 namespace Abp.EmailMarketing.EntityFrameworkCore
 {
@@ -26,6 +27,8 @@ namespace Abp.EmailMarketing.EntityFrameworkCore
         public DbSet<AppUser> Users { get; set; }
         public DbSet<Contact> Contacts { get; set; }
         public DbSet<Group> Groups { get; set; }
+
+        public DbSet<Email> Emails { get; set; }
 
         public DbSet<Campaign> Campaigns { get; set; }
 

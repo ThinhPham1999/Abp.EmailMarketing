@@ -1,0 +1,38 @@
+﻿@page
+@using Abp.EmailMarketing.Localization
+@using Abp.EmailMarketing.Permissions
+@using Abp.EmailMarketing.Web.Pages.Emails
+@using Microsoft.AspNetCore.Authorization
+@using Microsoft.Extensions.Localization
+@inject IStringLocalizer<EmailMarketingResource> L
+@inject IAuthorizationService AuthorizationService
+@model IndexModel
+
+@section scripts
+{
+    <abp-script src="/Pages/Emails/Index.js" />
+    <abp-style src="/libs/myStyle/Index.css" />
+}
+
+<abp-card>
+    <abp-card-header>
+        <abp-row>
+            <abp-column size-md="_6">
+                <abp-card-title>@L["Emails"]</abp-card-title>
+            </abp-column>
+            <abp-column size-md="_6" class="text-right">
+                @if (await AuthorizationService
+                  .IsGrantedAsync(EmailMarketingPermissions.Email.Create))
+                {
+                    <abp-button id="NewEmailButton"
+                                text="@L["NewEmail"].Value"
+                                icon="plus"
+                                button-type="Primary" />
+                }
+            </abp-column>
+        </abp-row>
+    </abp-card-header>
+    <abp-card-body>
+        <abp-table striped-rows="true" id="EmailsTable"></abp-table>
+    </abp-card-body>
+</abp-card>

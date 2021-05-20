@@ -1,19 +1,47 @@
-﻿using System;
+﻿using JetBrains.Annotations;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Volo.Abp;
+using Volo.Abp.Domain.Entities.Auditing;
 
 namespace Abp.EmailMarketing.Emails
 {
-    public class Email
+    public class Email : FullAuditedAggregateRoot<Guid>
     {
-        public int ID { get; set; }
         public string EmailString { get; private set; }
+        public string Password { get; set; }
 
         private Email()
         {
 
+        }
+
+        internal Email(
+            Guid id,
+            [NotNull] string emailString,
+            [NotNull] string password
+            )
+        {
+            SetEmailString(emailString);
+            Password = password;
+        }
+
+        internal Email ChangeEmailString([NotNull] string emailString)
+        {
+            SetEmailString(emailString);
+            return this;
+        }
+
+        private void SetEmailString([NotNull] string emailString)
+        {
+            EmailString = Check.NotNullOrWhiteSpace(
+                emailString,
+                nameof(emailString),
+                maxLength: EmailConsts.MaxEmailStringLength
+            );
         }
     }
 }

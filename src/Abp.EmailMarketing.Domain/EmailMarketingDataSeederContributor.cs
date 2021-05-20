@@ -1,5 +1,6 @@
 ﻿using Abp.EmailMarketing.Campaigns;
 using Abp.EmailMarketing.Contacts;
+using Abp.EmailMarketing.Emails;
 using Abp.EmailMarketing.GroupContacts;
 using System;
 using System.Collections.Generic;
@@ -19,16 +20,21 @@ namespace Abp.EmailMarketing
         private readonly GroupManager _groupManager;
         private readonly ICampaignRepository _campaignRepository;
         private readonly CampaignManager _campaignManager;
+        private readonly IEmailRepository _emailRepository;
+        private readonly EmailManager _emailManager;
 
         public EmailMarketingDataSeederContributor(IRepository<Contact, Guid> contactRepository
             , IGroupRepository groupRepository, GroupManager groupManager,
-            ICampaignRepository campaignRepository, CampaignManager campaignManager)
+            ICampaignRepository campaignRepository, CampaignManager campaignManager,
+            IEmailRepository emailRepository, EmailManager emailManager)
         {
             _contactRepository = contactRepository;
             _groupManager = groupManager;
             _groupRepository = groupRepository;
             _campaignRepository = campaignRepository;
             _campaignManager = campaignManager;
+            _emailRepository = emailRepository;
+            _emailManager = emailManager;
         }
 
         public async Task SeedAsync(DataSeedContext context)
@@ -111,6 +117,32 @@ namespace Abp.EmailMarketing
                         "Title02"
                     )
                     ,
+                    autoSave: true
+                );
+            }
+
+            if (await _emailRepository.GetCountAsync() <= 0)
+            {
+                var email = await _emailManager.CreateAsync(
+                        "vothithuqua11121997@gmail.com",
+                        "thuqua1997"
+                    );
+                await _emailRepository.InsertAsync(
+                    email,
+                    autoSave: true
+                );
+                await _emailRepository.InsertAsync(
+                    await _emailManager.CreateAsync(
+                        "tranducbo17a1.11@gmail.com",
+                        "Abc123#!"
+                    ),
+                    autoSave: true
+                );
+                await _emailRepository.InsertAsync(
+                    await _emailManager.CreateAsync(
+                        "ntthao@sdc.udn.vn",
+                        "Sdc@2021"
+                    ),
                     autoSave: true
                 );
             }

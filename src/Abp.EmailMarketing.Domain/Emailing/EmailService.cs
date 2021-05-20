@@ -42,8 +42,9 @@ namespace Abp.EmailMarketing.Emailing
 
         public async Task SendEmailAsync()
         {
+            //thuqua1997
             /*var encryptedGmailPassword = _encryptionService.Encrypt("your-gmail-password-here");*/
-            await _emailSender.SendAsync("","recipient-email-here", "Email subject", "This is the email body...");
+            await _emailSender.SendAsync("vothithuqua11121997@gmail.com", "beni09082004@gmail.com", "Email subject", "This is the email body...");
         }
 
     }

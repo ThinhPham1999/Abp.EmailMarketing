@@ -12,7 +12,7 @@ using Volo.Abp.TextTemplating;
 
 namespace Abp.EmailMarketing.Web.Pages.Email
 {
-    public class IndexModel : PageModel, ITransientDependency
+    public class IndexModel : EmailMarketingPageModel, ITransientDependency
     {
         private readonly EmailService _emailService;
         public BViewModel model;
@@ -25,6 +25,13 @@ namespace Abp.EmailMarketing.Web.Pages.Email
         public void OnGet()
         {
             model = new BViewModel();
+        }
+
+        public async Task<IActionResult> OnPost()
+        {
+            await _emailService.SendEmailAsync();
+
+            return NoContent();
         }
 
 

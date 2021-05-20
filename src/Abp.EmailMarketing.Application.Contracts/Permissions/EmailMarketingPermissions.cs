@@ -29,6 +29,14 @@
             public const string Delete = Default + ".Delete";
         }
 
+        public static class Email
+        {
+            public const string Default = GroupName + ".Emails";
+            public const string Create = Default + ".Create";
+            public const string Edit = Default + ".Edit";
+            public const string Delete = Default + ".Delete";
+        }
+
 
     }
 }

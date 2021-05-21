@@ -13,6 +13,7 @@ namespace Abp.EmailMarketing.Emails
     {
         public string EmailString { get; private set; }
         public string Password { get; set; }
+        public int Order { get; set; }
 
         private Email()
         {
@@ -22,11 +23,13 @@ namespace Abp.EmailMarketing.Emails
         internal Email(
             Guid id,
             [NotNull] string emailString,
-            [NotNull] string password
+            [NotNull] string password,
+            int order
             )
         {
             SetEmailString(emailString);
             Password = password;
+            Order = order;
         }
 
         internal Email ChangeEmailString([NotNull] string emailString)

@@ -1,5 +1,6 @@
 ﻿using Abp.EmailMarketing.Contacts;
 using Abp.EmailMarketing.Emailing;
+using Abp.EmailMarketing.Emails;
 using Abp.EmailMarketing.GroupContacts;
 using Abp.EmailMarketing.Permissions;
 using Microsoft.AspNetCore.Authorization;
@@ -23,16 +24,18 @@ namespace Abp.EmailMarketing.Campaigns
         private readonly IGroupRepository _groupRepository;
         private readonly EmailService _emailService;
         private readonly IContactRepository _contactRepository;
+        private readonly IEmailRepository _emailRepository;
 
         public CampaignAppService(ICampaignRepository campaignRepository, CampaignManager campaignManager,
             IGroupRepository groupRepository, EmailService emailService,
-            IContactRepository contactRepository)
+            IContactRepository contactRepository, IEmailRepository emailRepository)
         {
             _campaignRepository = campaignRepository;
             _campaignManager = campaignManager;
             _groupRepository = groupRepository;
             _emailService = emailService;
             _contactRepository = contactRepository;
+            _emailRepository = emailRepository;
         }
 
         public async Task<CampaignDto> CreateAsync(CreateUpdateCampaignDto input)
@@ -57,14 +60,23 @@ namespace Abp.EmailMarketing.Campaigns
            );
 
             await _campaignRepository.InsertAsync(campaign);
+            var emails = await _emailRepository.GetListAsync();
+            
+            
             foreach(Group group in campaign.Groups)
             {
-                var contacts = _contactRepository.GetListAsync().Result;
-                foreach(Contact c in contacts)
+                var contacts = await _contactRepository.GetListAsync();
+                contacts = contacts.Where(c => c.GroupId.Equals(group.Id)).ToList();
+                foreach (Contact c in contacts)
                 {
-                    await _emailService.SendAsync(c.Email, input.Content, input.Title);
+                    var email = emails.OrderBy(e => e.Order).FirstOrDefault();
+                    AnotherEmailService service = new AnotherEmailService();
+                    //await _emailService.SendEmailAsync(email.EmailString, c.Email, input.Content, input.Title);
+                    service.Send("abp@gmail.com", c.Email, input.Title, input.Content, email.EmailString, email.Password);
+                    email.Order++;
                 }
             }
+            await _emailRepository.UpdateManyAsync(emails);
 
             return ObjectMapper.Map<Campaign, CampaignDto>(campaign);
         }

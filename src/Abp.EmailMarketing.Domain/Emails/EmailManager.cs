@@ -21,7 +21,8 @@ namespace Abp.EmailMarketing.Emails
 
         public async Task<Email> CreateAsync(
             [NotNull] string emailString,
-            [NotNull] string password)
+            [NotNull] string password,
+            int order)
         {
             Check.NotNullOrWhiteSpace(emailString, nameof(emailString));
             var existingEmail = await _emailRepository.FindByEmailStringAsync(emailString);
@@ -33,7 +34,8 @@ namespace Abp.EmailMarketing.Emails
             return new Email(
                 GuidGenerator.Create(),
                 emailString,
-                password
+                password,
+                order
             );
         }
 

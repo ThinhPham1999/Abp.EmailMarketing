@@ -49,6 +49,8 @@ namespace Abp.EmailMarketing.Web.Pages.Emails
             public string EmailString { get; set; }
             [Required]
             public string Password { get; set; }
+            [HiddenInput]
+            public int Order { get; set; }
         }
     }
 }

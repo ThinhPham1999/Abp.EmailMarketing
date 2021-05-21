@@ -55,6 +55,7 @@ namespace Abp.EmailMarketing.EntityFrameworkCore
                e.ConfigureByConvention();
                e.Property(x => x.EmailString).IsRequired().HasMaxLength(EmailConsts.MaxEmailStringLength);
                e.Property(x => x.Password).IsRequired();
+               e.Property(x => x.Order).HasColumnType("int");
            });
         }
     }

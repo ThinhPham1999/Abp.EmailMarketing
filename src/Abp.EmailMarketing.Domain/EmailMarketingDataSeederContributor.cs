@@ -125,7 +125,8 @@ namespace Abp.EmailMarketing
             {
                 var email = await _emailManager.CreateAsync(
                         "vothithuqua11121997@gmail.com",
-                        "thuqua1997"
+                        "thuqua1997",
+                        0
                     );
                 await _emailRepository.InsertAsync(
                     email,
@@ -134,14 +135,16 @@ namespace Abp.EmailMarketing
                 await _emailRepository.InsertAsync(
                     await _emailManager.CreateAsync(
                         "tranducbo17a1.11@gmail.com",
-                        "Abc123#!"
+                        "Abc123#!",
+                        0
                     ),
                     autoSave: true
                 );
                 await _emailRepository.InsertAsync(
                     await _emailManager.CreateAsync(
                         "ntthao@sdc.udn.vn",
-                        "Sdc@2021"
+                        "Sdc@2021",
+                        0
                     ),
                     autoSave: true
                 );

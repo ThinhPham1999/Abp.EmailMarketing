@@ -23,7 +23,8 @@ namespace Abp.EmailMarketing.Emails
         {
             var email = await _emailManager.CreateAsync(
                  input.EmailString,
-                 input.Password
+                 input.Password,
+                 input.Order
              );
 
             await _emailRepository.InsertAsync(email);

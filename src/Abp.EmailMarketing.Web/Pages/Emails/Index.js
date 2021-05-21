@@ -37,7 +37,7 @@
                                         );
                                     },
                                     action: function (data) {
-                                        abp.emailMarketing.groupContacts.group
+                                        abp.emailMarketing.emails.email
                                             .delete(data.record.id)
                                             .then(function () {
                                                 abp.notify.info(
@@ -57,6 +57,10 @@
                 {
                     title: l('Password'),
                     data: "password"
+                },
+                {
+                    title: l('Order'),
+                    data: "order"
                 }
             ]
         })

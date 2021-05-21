@@ -8,6 +8,7 @@ namespace Abp.EmailMarketing.Settings
         {
             //Define your own settings here. Example:
             //context.Add(new SettingDefinition(EmailMarketingSettings.MySetting1));
+            
         }
     }
 }

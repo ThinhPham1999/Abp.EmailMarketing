@@ -13,5 +13,6 @@ namespace Abp.EmailMarketing.Emails
         public string EmailString { get; set; }
         [Required]
         public string Password { get; set; }
+        public int Order { get; set; } = 0;
     }
 }

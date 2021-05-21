@@ -34,11 +34,12 @@ namespace Abp.EmailMarketing.Web.Pages.Campaigns
             _emailService = emailService;
         }
 
-        public async void OnGetAsync()
+        public void OnGet()
         {
-            var groupLookup = await _contactAppService.GetGroupLookupAsync();
-            Groups = groupLookup.Items.Select(x => new SelectListItem(x.Name, x.Id.ToString())).ToList();
             Campaign = new CreateCampaignViewModel();
+
+            var groupLookup = _contactAppService.GetGroupLookupAsync().Result;
+            Groups = groupLookup.Items.Select(x => new SelectListItem(x.Name, x.Id.ToString())).ToList();
         }
 
         public async Task<IActionResult> OnPostAsync()

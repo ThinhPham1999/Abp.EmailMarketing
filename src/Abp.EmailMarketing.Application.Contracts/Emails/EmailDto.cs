@@ -9,5 +9,6 @@ namespace Abp.EmailMarketing.Emails
     {
         public string EmailString { get; private set; }
         public string Password { get; set; }
+        public int Order { get; set; }
     }
 }

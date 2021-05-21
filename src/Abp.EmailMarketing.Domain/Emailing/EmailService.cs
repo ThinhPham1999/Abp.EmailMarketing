@@ -40,6 +40,24 @@ namespace Abp.EmailMarketing.Emailing
             );
         }
 
+        public async Task SendEmailAsync(string from,string targetEmail, string content, string title)
+        {
+            var emailBody = await _templateRenderer.RenderAsync(
+                StandardEmailTemplates.Message,
+                new
+                {
+                    message = content
+                }
+            );
+            
+            await _emailSender.SendAsync(
+                from,
+                targetEmail,
+                title,
+                emailBody
+            );
+        }
+
         public async Task SendEmailAsync()
         {
             //thuqua1997

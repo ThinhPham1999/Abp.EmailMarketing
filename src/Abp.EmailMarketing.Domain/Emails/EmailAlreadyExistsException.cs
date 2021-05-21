@@ -10,7 +10,7 @@ namespace Abp.EmailMarketing.Emails
     class EmailAlreadyExistsException : BusinessException
     {
         public EmailAlreadyExistsException(string emailString) :
-            base(EmailMarketingDomainErrorCodes.CampaignAlreadyExists)
+            base(EmailMarketingDomainErrorCodes.EmailAlreadyExists)
         {
             WithData("emailString", emailString);
         }

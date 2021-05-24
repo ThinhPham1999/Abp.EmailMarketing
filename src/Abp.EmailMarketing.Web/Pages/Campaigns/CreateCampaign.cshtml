@@ -6,9 +6,40 @@
 @model CreateCampaignModel
 @inject IStringLocalizer<EmailMarketingResource> L
 
-<div class="container">
-    <h2>Create new Campaign</h2>
-    <abp-dynamic-form abp-model="Campaign" asp-page="/Campaigns/CreateCampaign" submit-button="true">
-    </abp-dynamic-form>
-</div>
+@{
+    Layout = null;
+}
+@*<div class="container">*@
+@*<h2>Create new Campaign</h2>*@
+@*<abp-dynamic-form abp-model="Campaign" asp-page="/Campaigns/CreateCampaign" submit-button="true">
+    </abp-dynamic-form>*@
+
+<!--<form asp-page="/Campaigns/CreateCampaign">
+    <h2 title="@L["NewEmail"].Value"></h2>
+    <abp-input asp-for="Campaign.Name" />
+    <abp-input asp-for="Campaign.Description" />
+    <abp-input asp-for="Campaign.Title" />
+    <abp-input asp-for="Campaign.Content" />
+    <abp-input asp-for="Campaign.Schedule" />
+    <abp-select asp-for="Campaign.GroupId" asp-items="@Model.Groups" />-->
+@*<buttons="@(AbpModalButtons.Cancel|AbpModalButtons.Save)"></button>*@
+<!--<abp-button button-type="Primary" type="submit" text="Save" />
+</form>-->
+<form asp-page="/Campaigns/CreateCampaign">
+    <abp-modal>
+        <abp-modal-header title="@L["NewCampaign"].Value"></abp-modal-header>
+        <abp-modal-body>
+            <abp-input asp-for="Campaign.Name" />
+            <abp-input asp-for="Campaign.Description" />
+            <abp-input asp-for="Campaign.Title" />
+            <abp-input asp-for="Campaign.Content" />
+            <abp-input asp-for="Campaign.Schedule" />
+            <abp-select asp-for="Campaign.GroupId" asp-items="@Model.Groups" />
+        </abp-modal-body>
+        <abp-modal-footer buttons="@(AbpModalButtons.Cancel|AbpModalButtons.Save)"></abp-modal-footer>
+    </abp-modal>
+</form>
+@*</div>*@
+
+
 

@@ -24,8 +24,8 @@ namespace Abp.EmailMarketing.Campaigns
             string description, DateTime dateTime, string title, string content)
         {
             Check.NotNullOrWhiteSpace(name, nameof(name));
-            var existingGroup = await _campaignRepository.FindByNameAsync(name);
-            if (existingGroup != null)
+            var existingCampaign = await _campaignRepository.FindByNameAsync(name);
+            if (existingCampaign != null)
             {
                 throw new CampaignAlreadyExistsException(name);
             }
@@ -47,8 +47,8 @@ namespace Abp.EmailMarketing.Campaigns
             Check.NotNull(campaign, nameof(campaign));
             Check.NotNullOrWhiteSpace(newName, nameof(newName));
 
-            var existingGroup = await _campaignRepository.FindByNameAsync(newName);
-            if (existingGroup != null)
+            var existingCampaign = await _campaignRepository.FindByNameAsync(newName);
+            if (existingCampaign != null)
             {
                 throw new CampaignAlreadyExistsException(newName);
             }
@@ -61,8 +61,8 @@ namespace Abp.EmailMarketing.Campaigns
             string description, DateTime dateTime, string title, string content, List<Group> groups)
         {
             Check.NotNullOrWhiteSpace(name, nameof(name));
-            var existingGroup = await _campaignRepository.FindByNameAsync(name);
-            if (existingGroup != null)
+            var existingCampaign = await _campaignRepository.FindByNameAsync(name);
+            if (existingCampaign != null)
             {
                 throw new CampaignAlreadyExistsException(name);
             }

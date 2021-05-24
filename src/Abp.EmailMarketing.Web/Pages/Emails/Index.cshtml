@@ -22,8 +22,14 @@
             </abp-column>
             <abp-column size-md="_6" class="text-right">
                 @if (await AuthorizationService
-                  .IsGrantedAsync(EmailMarketingPermissions.Email.Create))
+                 .IsGrantedAsync(EmailMarketingPermissions.Email.Create))
                 {
+                    <a asp-page="/Emails/Import">
+                        <abp-button id="ImportContact"
+                                    text="Import by excel"
+                                    icon="fas fa-file-excel"
+                                    button-type="Primary" />
+                    </a>
                     <abp-button id="NewEmailButton"
                                 text="@L["NewEmail"].Value"
                                 icon="plus"

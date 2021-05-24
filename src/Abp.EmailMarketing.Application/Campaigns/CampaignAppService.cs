@@ -86,9 +86,10 @@ namespace Abp.EmailMarketing.Campaigns
             throw new NotImplementedException();
         }
 
-        public Task<CampaignDto> GetAsync(Guid id)
+        public async Task<CampaignDto> GetAsync(Guid id)
         {
-            throw new NotImplementedException();
+            var campaign = await _campaignRepository.GetAsync(id);
+            return ObjectMapper.Map<Campaign, CampaignDto>(campaign);
         }
 
         public async Task<PagedResultDto<CampaignDto>> GetListAsync(GetCampaignListDto input)

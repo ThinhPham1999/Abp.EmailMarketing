@@ -1,0 +1,26 @@
+﻿@page
+@using Abp.EmailMarketing.Localization
+@using Abp.EmailMarketing.Web.Pages.Campaigns
+@using Microsoft.Extensions.Localization
+@using Volo.Abp.AspNetCore.Mvc.UI.Bootstrap.TagHelpers.Modal
+@model ViewDetailModel
+@inject IStringLocalizer<EmailMarketingResource> L
+
+@{
+    Layout = null;
+}
+
+<form asp-page="/Campaigns/CreateCampaign">
+    <abp-modal>
+        <abp-modal-header title="ViewDetail"></abp-modal-header>
+        <abp-modal-body>
+            <abp-input asp-for="Campaign.Id"/>
+            <abp-input asp-for="Campaign.Name" />
+            <abp-input asp-for="Campaign.Description" />
+            <abp-input asp-for="Campaign.Title" />
+            <abp-input asp-for="Campaign.Content" />
+            <abp-input asp-for="Campaign.Schedule" />
+        </abp-modal-body>
+        <abp-modal-footer buttons="@(AbpModalButtons.Cancel)"></abp-modal-footer>
+    </abp-modal>
+</form>

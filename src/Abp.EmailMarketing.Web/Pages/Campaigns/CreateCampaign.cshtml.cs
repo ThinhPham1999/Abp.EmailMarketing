@@ -46,8 +46,9 @@ namespace Abp.EmailMarketing.Web.Pages.Campaigns
         {
             var dto = ObjectMapper.Map<CreateCampaignViewModel, CreateUpdateCampaignDto>(Campaign);
             await _campaignAppService.CreateAsync(dto);
-            
-            return RedirectToPage("/Campaigns/Index");
+
+            //return RedirectToPage("/Campaigns/Index");
+            return NoContent();
         }
 
         public class CreateCampaignViewModel

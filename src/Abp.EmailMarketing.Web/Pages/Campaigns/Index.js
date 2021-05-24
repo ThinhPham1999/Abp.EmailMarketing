@@ -1,5 +1,6 @@
 ﻿$(function () {
     var l = abp.localization.getResource('EmailMarketing');
+    var createModal = new abp.ModalManager(abp.appPath + 'Campaigns/CreateCampaign');
 
     var dataTable = $('#CampaignsTable').DataTable(
         abp.libs.datatables.normalizeConfiguration({
@@ -69,4 +70,12 @@
             ]
         })
     );
+
+    createModal.onResult(function () {
+        dataTable.ajax.reload();
+    });
+    $('#NewCampaignButton').click(function (e) {
+        e.preventDefault();
+        createModal.open();
+    });
 });

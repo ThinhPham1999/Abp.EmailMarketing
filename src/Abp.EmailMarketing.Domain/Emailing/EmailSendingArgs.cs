@@ -3,12 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Volo.Abp.BackgroundJobs;
 
 namespace Abp.EmailMarketing.Emailing
 {
-    [BackgroundJobName("emails")]
-    public class EmailSetting
+    public class EmailSendingArgs
     {
         public string Mail { get; set; }
         public string DisplayName { get; set; }

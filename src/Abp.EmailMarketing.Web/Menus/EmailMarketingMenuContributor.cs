@@ -35,11 +35,12 @@ namespace Abp.EmailMarketing.Web.Menus
                 )
             );
 
-            if (MultiTenancyConsts.IsEnabled)
+
+            /*if (MultiTenancyConsts.IsEnabled)
             {
                 administration.SetSubItemOrder(TenantManagementMenuNames.GroupName, 1);
             }
-            else
+            else*/
             {
 #pragma warning disable CS0162 // Unreachable code detected
                 administration.TryRemoveMenuItem(TenantManagementMenuNames.GroupName);

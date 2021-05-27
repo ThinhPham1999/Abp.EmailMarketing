@@ -60,6 +60,25 @@ namespace Abp.EmailMarketing
                          "This is group 4"
                      )
                  );
+
+                var group01 = await _groupRepository.InsertAsync(
+                     await _groupManager.CreateAsync(
+                         "Group01",
+                         "This is group 1"
+                     )
+                 );
+                var group02 = await _groupRepository.InsertAsync(
+                     await _groupManager.CreateAsync(
+                         "Group02",
+                         "This is group 2"
+                     )
+                 );
+                var group05 = await _groupRepository.InsertAsync(
+                     await _groupManager.CreateAsync(
+                         "Group05",
+                         "This is group 5"
+                     )
+                 );
                 //Add contact to db
                 if (await _contactRepository.GetCountAsync() <= 0)
                 {
@@ -86,6 +105,253 @@ namespace Abp.EmailMarketing
                             LastName = "Tram",
                             DateOfBirth = new DateTime(2004, 8, 9),
                             PhoneNumber = "0932443774",
+                            Type = ContactType.Group02
+                        },
+                        autoSave: true
+                    );
+
+                    await _contactRepository.InsertAsync(
+                        new Contact
+                        {
+                            GroupId = group03.Id,
+                            Email = "thinhpvpde130111@fpt.edu.vn",
+                            FirstName = "Pham",
+                            LastName = "Thinh",
+                            DateOfBirth = new DateTime(1999, 5, 21),
+                            Type = ContactType.Group02
+                        },
+                        autoSave: true
+                    );
+
+                    await _contactRepository.InsertAsync(
+                        new Contact
+                        {
+                            GroupId = group02.Id,
+                            Email = "swuull99@gmail.com",
+                            FirstName = "Hoàng",
+                            LastName = "Hiệp",
+                            DateOfBirth = new DateTime(1999, 4, 30),
+                            Type = ContactType.Group02
+                        },
+                        autoSave: true
+                    );
+
+                    await _contactRepository.InsertAsync(
+                        new Contact
+                        {
+                            GroupId = group01.Id,
+                            Email = "vantcde130099@fpt.edu.vn",
+                            FirstName = "Công",
+                            LastName = "Văn",
+                            DateOfBirth = new DateTime(1999, 4, 27),
+                            Type = ContactType.Group02
+                        },
+                        autoSave: true
+                    );
+
+                    await _contactRepository.InsertAsync(
+                        new Contact
+                        {
+                            GroupId = group03.Id,
+                            Email = "vantran99d@gmail.com",
+                            FirstName = "Tran Công",
+                            LastName = "Văn",
+                            DateOfBirth = new DateTime(1999, 4, 27),
+                            Type = ContactType.Group02
+                        },
+                        autoSave: true
+                    );
+
+                    await _contactRepository.InsertAsync(
+                        new Contact
+                        {
+                            GroupId = group05.Id,
+                            Email = "hungpqDE130125@fpt.edu.vn",
+                            FirstName = "Pham",
+                            LastName = "Hưng",
+                            DateOfBirth = new DateTime(1998, 1, 27),
+                            Type = ContactType.Group02
+                        },
+                        autoSave: true
+                    );
+
+                    await _contactRepository.InsertAsync(
+                        new Contact
+                        {
+                            GroupId = group04.Id,
+                            Email = "minhvhDE130134@fpt.edu.vn",
+                            FirstName = "Vũ",
+                            LastName = "Minh",
+                            DateOfBirth = new DateTime(1999, 2, 27),
+                            Type = ContactType.Group02
+                        },
+                        autoSave: true
+                    );
+
+                    await _contactRepository.InsertAsync(
+                        new Contact
+                        {
+                            GroupId = group02.Id,
+                            Email = "haonmde130144@fpt.edu.vn",
+                            FirstName = "Minh",
+                            LastName = "Hào",
+                            DateOfBirth = new DateTime(1999, 3, 20),
+                            Type = ContactType.Group02
+                        },
+                        autoSave: true
+                    );
+
+                    await _contactRepository.InsertAsync(
+                        new Contact
+                        {
+                            GroupId = group02.Id,
+                            Email = "lamntDE130128@fpt.edu.vn",
+                            FirstName = "Trí",
+                            LastName = "Lâm",
+                            DateOfBirth = new DateTime(1999, 5, 30),
+                            Type = ContactType.Group02
+                        },
+                        autoSave: true
+                    );
+
+                    await _contactRepository.InsertAsync(
+                        new Contact
+                        {
+                            GroupId = group01.Id,
+                            Email = "anhpnDE130131@fpt.edu.vn",
+                            FirstName = "Nhật",
+                            LastName = "Anh",
+                            DateOfBirth = new DateTime(1999, 5, 30),
+                            Type = ContactType.Group02
+                        },
+                        autoSave: true
+                    );
+
+                    await _contactRepository.InsertAsync(
+                        new Contact
+                        {
+                            GroupId = group01.Id,
+                            Email = "minhnhde130140@fpt.edu.vn",
+                            FirstName = "Nguyễn",
+                            LastName = "Minh",
+                            DateOfBirth = new DateTime(1999, 5, 30),
+                            Type = ContactType.Group02
+                        },
+                        autoSave: true
+                    );
+
+                    await _contactRepository.InsertAsync(
+                        new Contact
+                        {
+                            GroupId = group03.Id,
+                            Email = "namptDE130115@fpt.edu.vn",
+                            FirstName = "Trung",
+                            LastName = "Nam",
+                            DateOfBirth = new DateTime(1999, 5, 30),
+                            Type = ContactType.Group02
+                        },
+                        autoSave: true
+                    );
+
+                    await _contactRepository.InsertAsync(
+                        new Contact
+                        {
+                            GroupId = group04.Id,
+                            Email = "longtvDE130118@fpt.edu.vn",
+                            FirstName = "Việt",
+                            LastName = "Long",
+                            DateOfBirth = new DateTime(1999, 1, 30),
+                            Type = ContactType.Group02
+                        },
+                        autoSave: true
+                    );
+
+                    await _contactRepository.InsertAsync(
+                        new Contact
+                        {
+                            GroupId = group02.Id,
+                            Email = "hiepmhDE130105@fpt.edu.vn",
+                            FirstName = "Hoàng",
+                            LastName = "Hiệp",
+                            DateOfBirth = new DateTime(1999, 1, 30),
+                            Type = ContactType.Group02
+                        },
+                        autoSave: true
+                    );
+
+                    await _contactRepository.InsertAsync(
+                        new Contact
+                        {
+                            GroupId = group05.Id,
+                            Email = "huypcDE130102@fpt.edu.vn",
+                            FirstName = "Công",
+                            LastName = "Huy",
+                            DateOfBirth = new DateTime(1999, 1, 25),
+                            Type = ContactType.Group02
+                        },
+                        autoSave: true
+                    );
+
+                    await _contactRepository.InsertAsync(
+                        new Contact
+                        {
+                            GroupId = group05.Id,
+                            Email = "cuongnmde130123@fpt.edu.vn",
+                            FirstName = "Manh",
+                            LastName = "Cường",
+                            DateOfBirth = new DateTime(1999, 1, 20),
+                            Type = ContactType.Group02
+                        },
+                        autoSave: true
+                    );
+
+                    await _contactRepository.InsertAsync(
+                        new Contact
+                        {
+                            GroupId = group02.Id,
+                            Email = "huyndde140196@fpt.edu.vn",
+                            FirstName = "Đức",
+                            LastName = "Huy",
+                            DateOfBirth = new DateTime(1999, 7, 20),
+                            Type = ContactType.Group02
+                        },
+                        autoSave: true
+                    );
+
+                    await _contactRepository.InsertAsync(
+                        new Contact
+                        {
+                            GroupId = group03.Id,
+                            Email = "khoatpaDE130107@fpt.edu.vn",
+                            FirstName = "Anh",
+                            LastName = "Khoa",
+                            DateOfBirth = new DateTime(1999, 7, 20),
+                            Type = ContactType.Group02
+                        },
+                        autoSave: true
+                    );
+
+                    await _contactRepository.InsertAsync(
+                        new Contact
+                        {
+                            GroupId = group01.Id,
+                            Email = "duynhtDE130023@fpt.edu.vn",
+                            FirstName = "Thế",
+                            LastName = "Duy",
+                            DateOfBirth = new DateTime(1999, 7, 20),
+                            Type = ContactType.Group02
+                        },
+                        autoSave: true
+                    );
+
+                    await _contactRepository.InsertAsync(
+                        new Contact
+                        {
+                            GroupId = group01.Id,
+                            Email = "trambich0935@gmail.com",
+                            FirstName = "Bích",
+                            LastName = "Trâm",
+                            DateOfBirth = new DateTime(2004, 7, 8),
                             Type = ContactType.Group02
                         },
                         autoSave: true

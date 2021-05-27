@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 using Volo.Abp.AuditLogging.EntityFrameworkCore;
 using Volo.Abp.BackgroundJobs.EntityFrameworkCore;
 using Volo.Abp.EntityFrameworkCore;
@@ -45,6 +46,11 @@ namespace Abp.EmailMarketing.EntityFrameworkCore
             {
                 /* The main point to change your DBMS.
                  * See also EmailMarketingMigrationsDbContextFactory for EF Core tooling. */
+                /*options.PreConfigure<EmailMarketingDbContext>(opts =>
+                {
+                    opts.DbContextOptions.UseLazyLoadingProxies(); // Enable lazy loading
+                });*/
+
                 options.UseSqlServer();
             });
         }

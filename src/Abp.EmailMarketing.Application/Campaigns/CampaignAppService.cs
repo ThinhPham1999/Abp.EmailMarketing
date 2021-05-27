@@ -25,10 +25,13 @@ namespace Abp.EmailMarketing.Campaigns
         private readonly EmailService _emailService;
         private readonly IContactRepository _contactRepository;
         private readonly IEmailRepository _emailRepository;
+        private readonly AnotherEmailService _anotherEmailService;
+
 
         public CampaignAppService(ICampaignRepository campaignRepository, CampaignManager campaignManager,
             IGroupRepository groupRepository, EmailService emailService,
-            IContactRepository contactRepository, IEmailRepository emailRepository)
+            IContactRepository contactRepository, IEmailRepository emailRepository,
+            AnotherEmailService anotherEmailService)
         {
             _campaignRepository = campaignRepository;
             _campaignManager = campaignManager;
@@ -36,6 +39,7 @@ namespace Abp.EmailMarketing.Campaigns
             _emailService = emailService;
             _contactRepository = contactRepository;
             _emailRepository = emailRepository;
+            _anotherEmailService = anotherEmailService;
         }
 
         public async Task<CampaignDto> CreateAsync(CreateUpdateCampaignDto input)
@@ -70,9 +74,9 @@ namespace Abp.EmailMarketing.Campaigns
                 foreach (Contact c in contacts)
                 {
                     var email = emails.OrderBy(e => e.Order).FirstOrDefault();
-                    AnotherEmailService service = new AnotherEmailService();
+                    //AnotherEmailService service = new AnotherEmailService();
                     //await _emailService.SendEmailAsync(email.EmailString, c.Email, input.Content, input.Title);
-                    service.Send("abp@gmail.com", c.Email, input.Title, input.Content, email.EmailString, email.Password);
+                    await _anotherEmailService.SendEmailAsync(campaign.Name, email.EmailString, c.Email, campaign.Title, campaign.Content, email.EmailString, email.Password);
                     email.Order++;
                 }
             }

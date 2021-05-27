@@ -11,15 +11,21 @@
 }
 
 <form asp-page="/Campaigns/CreateCampaign">
-    <abp-modal>
+    <abp-modal size="ExtraLarge">
         <abp-modal-header title="@L["NewCampaign"].Value"></abp-modal-header>
         <abp-modal-body>
-            <abp-input asp-for="Campaign.Name" />
-            <abp-input asp-for="Campaign.Description" />
-            <abp-input asp-for="Campaign.Title" />
+            <div class="row">
+                <div class="col-6">
+                    <abp-input asp-for="Campaign.Name" />
+                    <abp-input asp-for="Campaign.Description" />
+                    <abp-select asp-for="Campaign.GroupId" asp-items="@Model.Groups" />
+                </div>
+                <div class="col-6">
+                    <abp-input asp-for="Campaign.Title" />
+                    <abp-input asp-for="Campaign.Schedule" />
+                </div>
+            </div>
             <abp-input asp-for="Campaign.Content" />
-            <abp-input asp-for="Campaign.Schedule" />
-            <abp-select asp-for="Campaign.GroupId" asp-items="@Model.Groups" />
         </abp-modal-body>
         <abp-modal-footer buttons="@(AbpModalButtons.Cancel|AbpModalButtons.Save)"></abp-modal-footer>
     </abp-modal>

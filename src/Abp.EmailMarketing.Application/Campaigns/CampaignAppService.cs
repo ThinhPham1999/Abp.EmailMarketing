@@ -11,6 +11,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Volo.Abp.Application.Dtos;
 using Volo.Abp.Application.Services;
+using Volo.Abp.BackgroundJobs;
 using Volo.Abp.Domain.Repositories;
 
 namespace Abp.EmailMarketing.Campaigns
@@ -26,12 +27,14 @@ namespace Abp.EmailMarketing.Campaigns
         private readonly IContactRepository _contactRepository;
         private readonly IEmailRepository _emailRepository;
         private readonly AnotherEmailService _anotherEmailService;
+        private readonly IBackgroundJobManager _backgroundJobManager;
 
 
         public CampaignAppService(ICampaignRepository campaignRepository, CampaignManager campaignManager,
             IGroupRepository groupRepository, EmailService emailService,
             IContactRepository contactRepository, IEmailRepository emailRepository,
-            AnotherEmailService anotherEmailService)
+            AnotherEmailService anotherEmailService,
+            IBackgroundJobManager backgroundJobManager)
         {
             _campaignRepository = campaignRepository;
             _campaignManager = campaignManager;
@@ -40,6 +43,7 @@ namespace Abp.EmailMarketing.Campaigns
             _contactRepository = contactRepository;
             _emailRepository = emailRepository;
             _anotherEmailService = anotherEmailService;
+            _backgroundJobManager = backgroundJobManager;
         }
 
         public async Task<CampaignDto> CreateAsync(CreateUpdateCampaignDto input)
@@ -76,7 +80,19 @@ namespace Abp.EmailMarketing.Campaigns
                     var email = emails.OrderBy(e => e.Order).FirstOrDefault();
                     //AnotherEmailService service = new AnotherEmailService();
                     //await _emailService.SendEmailAsync(email.EmailString, c.Email, input.Content, input.Title);
-                    await _anotherEmailService.SendEmailAsync(campaign.Name, email.EmailString, c.Email, campaign.Title, campaign.Content, email.EmailString, email.Password);
+                    //await _anotherEmailService.SendEmailAsync(campaign.Name, email.EmailString, c.Email, campaign.Title, campaign.Content, email.EmailString, email.Password);
+                    await _backgroundJobManager.EnqueueAsync(
+                        new EmailSetting
+                        {
+                            Host = "smtp.gmail.com",
+                            Port = 587,
+                            Mail = email.EmailString,
+                            Password = email.Password,
+                            To = c.Email,
+                            Subject = campaign.Title,
+                            Body = campaign.Content,
+                            DisplayName = campaign.Name
+                        });
                     email.Order++;
                 }
             }

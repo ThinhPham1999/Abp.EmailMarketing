@@ -4,6 +4,7 @@ using Microsoft.Extensions.DependencyInjection.Extensions;
 using Volo.Abp;
 using Volo.Abp.Account;
 using Volo.Abp.AutoMapper;
+using Volo.Abp.BackgroundJobs;
 using Volo.Abp.Emailing;
 using Volo.Abp.FeatureManagement;
 using Volo.Abp.Identity;
@@ -23,7 +24,8 @@ namespace Abp.EmailMarketing
         typeof(AbpPermissionManagementApplicationModule),
         typeof(AbpTenantManagementApplicationModule),
         typeof(AbpFeatureManagementApplicationModule),
-        typeof(AbpSettingManagementApplicationModule)
+        typeof(AbpSettingManagementApplicationModule),
+        typeof(AbpBackgroundJobsModule)
         )]
     public class EmailMarketingApplicationModule : AbpModule
     {
@@ -32,6 +34,16 @@ namespace Abp.EmailMarketing
             Configure<AbpAutoMapperOptions>(options =>
             {
                 options.AddMaps<EmailMarketingApplicationModule>();
+            });
+
+            /*Configure<AbpBackgroundJobOptions>(options =>
+            {
+                options.IsJobExecutionEnabled = false; //Disables job execution
+            });*/
+
+            Configure<AbpBackgroundJobWorkerOptions>(options =>
+            {
+                options.DefaultTimeout = 864000; //10 days (as seconds)
             });
         }
     }

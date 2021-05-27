@@ -73,7 +73,7 @@
                                 locale: abp.localization.currentCulture.name
                             }).toLocaleString();
                     }
-                },
+                }/*,
                 {
                     title: l('CreationTime'), data: "creationTime",
                     render: function (data) {
@@ -83,7 +83,7 @@
                                 locale: abp.localization.currentCulture.name
                             }).toLocaleString(luxon.DateTime.DATETIME_SHORT);
                     }
-                }
+                }*/
             ]
         })
     );

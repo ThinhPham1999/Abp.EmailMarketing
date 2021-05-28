@@ -22,7 +22,7 @@ namespace Abp.EmailMarketing.Web.Pages.Campaigns
 
         private readonly ICampaignAppService _campaignAppService;
 
-        public ViewDetailModel(ICampaignAppService campaignAppService, IContactAppService contactAppService)
+        public ViewDetailModel(ICampaignAppService campaignAppService)
         {
             _campaignAppService = campaignAppService;
         }

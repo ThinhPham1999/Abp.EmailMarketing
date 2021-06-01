@@ -108,7 +108,8 @@ namespace Abp.EmailMarketing.Campaigns
 
         public async Task<CampaignDto> GetAsync(Guid id)
         {
-            var campaign = await _campaignRepository.GetAsync(id);
+            var campaign = await _campaignRepository.GetAsync(id, includeDetails: false);
+
             return ObjectMapper.Map<Campaign, CampaignDto>(campaign);
         }
 

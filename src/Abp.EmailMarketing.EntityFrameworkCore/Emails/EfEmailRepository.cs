@@ -14,10 +14,11 @@ namespace Abp.EmailMarketing.Emails
     public class EfEmailRepository :
         EfCoreRepository<EmailMarketingDbContext, Email, Guid>, IEmailRepository
     {
-        public EfEmailRepository(IDbContextProvider<EmailMarketingDbContext> dbContextProvider)
+        private EmailMarketingDbContext _emailMarketingDbContext;
+        public EfEmailRepository(IDbContextProvider<EmailMarketingDbContext> dbContextProvider, EmailMarketingDbContext emailMarketingDbContext)
            : base(dbContextProvider)
         {
-
+            _emailMarketingDbContext = emailMarketingDbContext;
         }
 
         public async Task<Email> FindByEmailStringAsync(string emailString)
@@ -29,6 +30,7 @@ namespace Abp.EmailMarketing.Emails
         public async Task<List<Email>> GetListAsync(int skipCount, int maxResultCount, string sorting, string filter = null)
         {
             var dbSet = await GetDbSetAsync();
+            //var dbSet = _emailMarketingDbContext.Emails;
             return await dbSet
                 .WhereIf(
                     !filter.IsNullOrWhiteSpace(),

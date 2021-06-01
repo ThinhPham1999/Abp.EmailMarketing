@@ -46,10 +46,10 @@ namespace Abp.EmailMarketing.EntityFrameworkCore
             {
                 /* The main point to change your DBMS.
                  * See also EmailMarketingMigrationsDbContextFactory for EF Core tooling. */
-                /*options.PreConfigure<EmailMarketingDbContext>(opts =>
+                options.PreConfigure<EmailMarketingDbContext>(opts =>
                 {
                     opts.DbContextOptions.UseLazyLoadingProxies(); // Enable lazy loading
-                });*/
+                });
 
                 options.UseSqlServer();
             });

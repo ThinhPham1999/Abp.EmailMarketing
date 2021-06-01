@@ -18,5 +18,10 @@ namespace Abp.EmailMarketing.Contacts
         public int Status { get; set; }
         public ContactType Type { get; set; }
         public Guid GroupId { get; set; }
+
+        public Contact()
+        {
+
+        }
     }
 }

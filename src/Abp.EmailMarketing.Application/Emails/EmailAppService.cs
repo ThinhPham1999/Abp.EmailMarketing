@@ -50,6 +50,8 @@ namespace Abp.EmailMarketing.Emails
                 input.Sorting = nameof(Email.EmailString);
             }
 
+            //var emails1 = await _emailRepository.GetListAsync();
+
             var emails = await _emailRepository.GetListAsync(
                 input.SkipCount,
                 input.MaxResultCount,

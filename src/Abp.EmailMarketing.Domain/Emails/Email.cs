@@ -15,7 +15,12 @@ namespace Abp.EmailMarketing.Emails
         public string Password { get; set; }
         public int Order { get; set; }
 
-        private Email()
+        /*private Email()
+        {
+
+        }*/
+
+        public Email()
         {
 
         }

@@ -17,7 +17,7 @@ namespace Abp.EmailMarketing.GroupContacts
 
         public virtual IList<Campaign> Campaigns { get; set; }
 
-        private Group()
+        public Group()
         {
 
         }

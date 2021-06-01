@@ -20,7 +20,7 @@ namespace Abp.EmailMarketing.Campaigns
 
         public virtual IList<Group> Groups { get; set; }
 
-        private Campaign()
+        public Campaign()
         {
 
         }

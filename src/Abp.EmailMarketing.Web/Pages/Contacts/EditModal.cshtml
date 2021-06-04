@@ -8,12 +8,54 @@
 @{
     Layout = null;
 }
-<abp-dynamic-form abp-model="Contact" asp-page="/Contacts/EditModal">
+
+<form asp-page="/Contacts/EditModal">
     <abp-modal>
         <abp-modal-header title="@L["Update"].Value"></abp-modal-header>
         <abp-modal-body>
-            <abp-form-content />
+            <abp-input asp-for="Contact.Id"/>
+            <label asp-for="Groups"></label>
+            <div class="overflow-auto bg-light m-1" style="height: 100px">
+                @{
+                    <div class="form-check select-all">
+                        <input class="form-check-input" id="all" type="checkbox" />
+                        <label class="form-check-label" for="all"><strong>Select All</strong></label>
+                    </div>
+                    for (int i = 0; i < Model.Groups.Count; i++)
+                    {
+                        <div class="form-check rows">
+                            @if (Model.Contact.GroupIds.Any(g => g.ToString().Equals(Model.Groups[i].Value)))
+                            {
+                                <input class="form-check-input" type="checkbox" id="@Model.Groups[i].Value" value="@Model.Groups[i].Value" name="Result" checked />
+                            }
+                            else
+                            {
+                                <input class="form-check-input" type="checkbox" id="@Model.Groups[i].Value" value="@Model.Groups[i].Value" name="Result" />
+                            }
+                            <label class="form-check-label" for="@Model.Groups[i].Value">@Model.Groups[i].Text</label>
+                        </div>
+                    }
+                }
+            </div>
+            <abp-input asp-for="Contact.FirstName" />
+            <abp-input asp-for="Contact.LastName" />
+            <abp-input asp-for="Contact.Email" />
+            <abp-input asp-for="Contact.DateOfBirth" />
+            <abp-input asp-for="Contact.PhoneNumber" />
+            <abp-input asp-for="Contact.Addition" />
         </abp-modal-body>
         <abp-modal-footer buttons="@(AbpModalButtons.Cancel|AbpModalButtons.Save)"></abp-modal-footer>
     </abp-modal>
-</abp-dynamic-form>
+</form>
+
+<script>
+    $(function () {
+        $('#all').change(function (e) {
+            if (e.currentTarget.checked) {
+                $('.rows').find('input[type="checkbox"]').prop('checked', true);
+            } else {
+                $('.rows').find('input[type="checkbox"]').prop('checked', false);
+            }
+        });
+    });
+</script>

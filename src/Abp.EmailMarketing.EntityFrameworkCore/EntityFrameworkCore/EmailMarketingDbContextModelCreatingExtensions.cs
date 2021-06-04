@@ -26,9 +26,6 @@ namespace Abp.EmailMarketing.EntityFrameworkCore
                 c.Property(x => x.PhoneNumber).HasColumnType("nvarchar(50)");
                 c.Property(x => x.DateOfBirth).HasColumnType("datetime2");
                 c.Property(x => x.Type).IsRequired();
-
-                //Add relation
-                c.HasOne<Group>().WithMany().HasForeignKey(x => x.GroupId).IsRequired();
             });
 
             builder.Entity<Group>(g =>
@@ -57,6 +54,18 @@ namespace Abp.EmailMarketing.EntityFrameworkCore
                e.Property(x => x.Password).IsRequired();
                e.Property(x => x.Order).HasColumnType("int");
            });
+
+            builder.Entity<ContactGroup>(cg =>
+            {
+                cg.ToTable(EmailMarketingConsts.DbTablePrefix + "ContactGroup", EmailMarketingConsts.DbSchema);
+                cg.ConfigureByConvention();
+                cg.Property(x => x.GroupId).IsRequired();
+                cg.Property(x => x.ContactId).IsRequired();
+            });
+
+            builder.Entity<ContactGroup>().HasOne(c => c.Contact).WithMany(cg => cg.ContactGroups);
+            builder.Entity<ContactGroup>().HasOne(c => c.Group).WithMany(cg => cg.ContactGroups);
+
         }
     }
 }

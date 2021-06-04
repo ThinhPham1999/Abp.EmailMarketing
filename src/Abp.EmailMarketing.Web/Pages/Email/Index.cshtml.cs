@@ -32,7 +32,7 @@ namespace Abp.EmailMarketing.Web.Pages.Email
             model = new BViewModel();
         }
 
-        public async Task<IActionResult> OnPost()
+        /*public Task<IActionResult> OnPost()
         {
             AnotherEmailService service = new AnotherEmailService();
             //await _emailService.SendEmailAsync();
@@ -40,7 +40,7 @@ namespace Abp.EmailMarketing.Web.Pages.Email
             //_settingProvider
             service.Send("Thuba", "beni09082004@gmail.com", "ABP", "<p>Hello</p>");
             return NoContent();
-        }
+        }*/
 
 
         public class BViewModel

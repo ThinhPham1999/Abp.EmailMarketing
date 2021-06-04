@@ -74,7 +74,7 @@ namespace Abp.EmailMarketing.Campaigns
             foreach(Group group in campaign.Groups)
             {
                 var contacts = await _contactRepository.GetListAsync();
-                contacts = contacts.Where(c => c.GroupId.Equals(group.Id)).ToList();
+                //contacts = contacts.Where(c => c.GroupId.Equals(group.Id)).ToList();
                 foreach (Contact c in contacts)
                 {
                     var email = emails.OrderBy(e => e.Order).FirstOrDefault();

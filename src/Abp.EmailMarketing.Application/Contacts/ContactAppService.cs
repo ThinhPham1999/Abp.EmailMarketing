@@ -17,97 +17,54 @@ namespace Abp.EmailMarketing.Contacts
 {
     [Authorize(EmailMarketingPermissions.Contacts.Default)]
     public class ContactAppService :
-        CrudAppService<
+        /*CrudAppService<
             Contact, //The Contact entity
             ContactDto, //Used to show contacts
             Guid, //Primary key of the contact entity
             GetContactListDto, //Used for paging/sorting
-            CreateUpdateContactDto>, //Used to create/update a contact
-        IContactAppService //implement the IContactAppService
+            CreateUpdateContactDto>, //Used to create/update a contact*/
+        EmailMarketingAppService, IContactAppService
     {
         private readonly IGroupRepository _groupRepository;
+        private readonly IContactRepository _contactRepository;
+        private readonly ContactManager _contactManager;
 
         public ContactAppService(
-            IRepository<Contact, Guid> repository,
-            IGroupRepository groupRepository)
-            : base(repository)
+            IGroupRepository groupRepository, IContactRepository contactRepository,
+            ContactManager contactManager)
         {
             _groupRepository = groupRepository;
-            GetPolicyName = EmailMarketingPermissions.Contacts.Default;
-            GetListPolicyName = EmailMarketingPermissions.Contacts.Default;
-            CreatePolicyName = EmailMarketingPermissions.Contacts.Create;
-            UpdatePolicyName = EmailMarketingPermissions.Contacts.Edit;
-            DeletePolicyName = EmailMarketingPermissions.Contacts.Create;
+            _contactRepository = contactRepository;
+            _contactManager = contactManager;
         }
 
-        public override async Task<ContactDto> GetAsync(Guid id)
+        public async Task<ContactDto> GetAsync(Guid id)
         {
-            //Get the IQueryable<Contact> from the repository
-            var queryable = await Repository.GetQueryableAsync();
-
-            //Prepare a query to join contacts and groups
-            var query = from contact in queryable
-                        join groups in _groupRepository on contact.GroupId equals groups.Id
-                        where contact.Id == id
-                        select new { contact, groups };
-
-            //Execute the query and get the contact with group
-            var queryResult = await AsyncExecuter.FirstOrDefaultAsync(query);
-            if (queryResult == null)
-            {
-                throw new EntityNotFoundException(typeof(Contact), id);
-            }
-
-            var contactDto = ObjectMapper.Map<Contact, ContactDto>(queryResult.contact);
-            contactDto.GroupName = queryResult.groups.Name;
-            return contactDto;
+            var contact = await _contactRepository.GetAsync(id);
+            return ObjectMapper.Map<Contact, ContactDto>(contact);
         }
 
-        public override async Task<PagedResultDto<ContactDto>> GetListAsync(GetContactListDto input)
+        public async Task<PagedResultDto<ContactDto>> GetListAsync(GetContactListDto input)
         {
-            //Get the IQueryable<Contact> from the repository
-            var queryable = await Repository.GetQueryableAsync();
-
-            var query = from contact in queryable
-                        join groups in _groupRepository on contact.GroupId equals groups.Id
-                        //where contact.Email == input.Filter
-                        select new { contact, groups };
-            //Prepare a query to join contacts and groups
-            if (!input.Filter.IsNullOrWhiteSpace())
+            if (input.Sorting.IsNullOrWhiteSpace())
             {
-                query = from contact in queryable
-                        join groups in _groupRepository on contact.GroupId equals groups.Id
-                        where contact.Email.ToUpper().Contains(input.Filter.ToUpper())
-                        select new { contact, groups };
+                input.Sorting = nameof(Group.Name);
             }
 
-            //Get the total count with another query
-            var totalCount = input.Filter == null ?
-                await Repository.GetCountAsync() :
-                AsyncExecuter.ToListAsync(query).Result.Count;
+            var contacts = await _contactRepository.GetListAsync(
+                input.SkipCount,
+                input.MaxResultCount,
+                input.Sorting,
+                input.Filter
+            );
 
-            //Paging
-            query = query
-                .OrderBy(NormalizeSorting(input.Sorting))
-                .Skip(input.SkipCount)
-                .Take(input.MaxResultCount);
-                
-
-            //Execute the query and get a list
-            var queryResult = await AsyncExecuter.ToListAsync(query);
-
-            //Convert the query result to a list of ContactDto objects
-            var contactDtos = queryResult.Select(x =>
-            {
-                var contactDto = ObjectMapper.Map<Contact, ContactDto>(x.contact);
-                contactDto.GroupName = x.groups.Name;
-                return contactDto;
-            }).ToList();
-
+            var totalCount = input.Filter == null
+                ? await _contactRepository.CountAsync()
+                : await _contactRepository.CountAsync(contact => contact.Email.Contains(input.Filter));
 
             return new PagedResultDto<ContactDto>(
                 totalCount,
-                contactDtos
+                ObjectMapper.Map<List<Contact>, List<ContactDto>>(contacts)
             );
         }
 
@@ -120,23 +77,108 @@ namespace Abp.EmailMarketing.Contacts
             );
         }
 
-        private static string NormalizeSorting(string sorting)
+        public async Task<ContactDto> CreateAsync(CreateUpdateContactDto input)
         {
-            if (sorting.IsNullOrEmpty())
+            var group = await _groupRepository.GetListAsync();
+            List<ContactGroup> contactGroups = new List<ContactGroup>();
+
+            var contact = await _contactManager.CreateAsync(
+                input.FirstName,
+                input.LastName,
+                input.Email,
+                input.DateOfBirth,
+                input.PhoneNumber,
+                input.Addition,
+                0,
+                null,
+                0
+            );
+
+            foreach (Guid id in input.GroupIds)
             {
-                return $"contact.{nameof(Contact.LastName)}";
+                var item = group.FirstOrDefault(gid => gid.Id.ToString().Equals(id.ToString()));
+                if (item != null)
+                {
+                    contactGroups.Add(new ContactGroup(
+                            GuidGenerator.Create(),
+                            contact.Id,
+                            item.Id
+                        ));
+                }
             }
 
-            if (sorting.Contains("groupName", StringComparison.OrdinalIgnoreCase))
+            contact.ContactGroups = contactGroups;
+
+            await _contactRepository.InsertAsync(contact);
+            //await _contactRepository.CreateContact(contact);
+
+            return ObjectMapper.Map<Contact, ContactDto>(contact);
+        }
+
+        public async Task UpdateAsync(Guid id, CreateUpdateContactDto input)
+        {
+            var contact = await _contactRepository.GetAsync(id, includeDetails: false);
+            await _contactRepository.EnsureCollectionLoadedAsync(contact, x => x.ContactGroups);
+
+            //List<Group> groups = await _groupRepository.GetListAsync();
+            //Add new relationship
+            foreach (Guid groupid in input.GroupIds)
             {
-                return sorting.Replace(
-                    "groupName",
-                    "groups.Name",
-                    StringComparison.OrdinalIgnoreCase
-                );
+                var item = contact.ContactGroups.FirstOrDefault(gid => gid.GroupId.ToString().Equals(groupid.ToString()));
+                if (item == null)
+                {
+                    contact.ContactGroups.Add(new ContactGroup(
+                        GuidGenerator.Create(),
+                        contact.Id,
+                        groupid
+                    ));
+                }
             }
 
-            return $"contact.{sorting}";
+            //Remove relationship
+            for (int i = 0; i < contact.ContactGroups.Count; i++)
+            {
+                Guid item = input.GroupIds.FirstOrDefault(gid => gid.ToString().Equals(contact.ContactGroups[i].GroupId.ToString()));
+                if (item.ToString().Equals(Guid.Empty.ToString()))
+                {
+                    contact.ContactGroups.Remove(contact.ContactGroups[i]);
+                    i--;
+                }
+            }
+            //contact.Groups = new List<Group>();
+
+            contact.Email = input.Email;
+            //contact.ContactGroups = updateGroup;
+            contact.DateOfBirth = input.DateOfBirth;
+            contact.FirstName = input.FirstName;
+            contact.LastName = input.LastName;
+            contact.PhoneNumber = input.PhoneNumber;
+            contact.Addition = input.Addition;
+            
+            await _contactRepository.UpdateAsync(contact);
+            //await _contactRepository.UpdateContact(id, contact);
+        }
+
+        public async Task DeleteAsync(Guid id)
+        {
+            await _contactRepository.DeleteAsync(id);
+        }
+
+        public async Task<ListResultDto<GroupLookupDto>> GetGroupByContactId(Guid id)
+        {
+            var contact = await _contactRepository.GetAsync(id, includeDetails: false);
+            //order.Lines is empty on this stage
+
+            await _contactRepository.EnsureCollectionLoadedAsync(contact, x => x.ContactGroups);
+            var result = new List<Group>();
+            foreach(var g in contact.ContactGroups)
+            {
+                result.Add(g.Group);
+            }
+
+            return new ListResultDto<GroupLookupDto>(
+                ObjectMapper.Map<List<Group>, List<GroupLookupDto>>(result)
+            );
         }
     }
 }

@@ -32,6 +32,8 @@ namespace Abp.EmailMarketing.EntityFrameworkCore
 
         public DbSet<Campaign> Campaigns { get; set; }
 
+        public DbSet<ContactGroup> ContactGroups { get; set; }
+
         /* Add DbSet properties for your Aggregate Roots / Entities here.
          * Also map them inside EmailMarketingDbContextModelCreatingExtensions.ConfigureEmailMarketing
          */

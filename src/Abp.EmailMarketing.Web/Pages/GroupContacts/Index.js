@@ -20,7 +20,7 @@
                             [
                                 {
                                     text: l('Edit'),
-                                    visible: 
+                                    visible:
                                         abp.auth.isGranted('EmailMarketing.Groups.Edit'),
                                     action: function (data) {
                                         editModal.open({ id: data.record.id });
@@ -28,7 +28,7 @@
                                 },
                                 {
                                     text: l('Delete'),
-                                    visible: 
+                                    visible:
                                         abp.auth.isGranted('EmailMarketing.Groups.Delete'),
                                     confirmMessage: function (data) {
                                         return l(
@@ -39,7 +39,7 @@
                                     action: function (data) {
                                         abp.emailMarketing.groupContacts.group
                                             .delete(data.record.id)
-                                            .then(function() {
+                                            .then(function () {
                                                 abp.notify.info(
                                                     l('SuccessfullyDeleted')
                                                 );
@@ -50,6 +50,23 @@
                             ]
                     }
                 },
+                {
+                    title: l('Contact'),
+                    rowAction: {
+                        items:
+                            [
+                                {
+                                    text: l('View Contact'),
+                                    visible:
+                                        abp.auth.isGranted('EmailMarketing.Groups.Edit'),
+                                    action: function (data) {
+                                        editModal.open({ id: data.record.id });
+                                    }
+                                }
+                            ]
+                    }
+                }
+                ,
                 {
                     title: l('Name'),
                     data: "name"

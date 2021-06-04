@@ -35,7 +35,11 @@ namespace Abp.EmailMarketing.Contacts
             return await dbSet
                 .WhereIf(
                     !filter.IsNullOrWhiteSpace(),
-                    c => c.Email.Contains(filter)
+                    c => c.Email.Contains(filter) 
+                        || c.DateOfBirth.ToString().Contains(filter)
+                        || c.PhoneNumber.Contains(filter)
+                        || c.FirstName.Contains(filter)
+                        || c.LastName.Contains(filter)
                  )
                 .OrderBy(sorting)
                 .Skip(skipCount)

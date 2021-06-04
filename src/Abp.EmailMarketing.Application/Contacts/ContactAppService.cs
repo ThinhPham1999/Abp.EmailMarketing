@@ -60,7 +60,11 @@ namespace Abp.EmailMarketing.Contacts
 
             var totalCount = input.Filter == null
                 ? await _contactRepository.CountAsync()
-                : await _contactRepository.CountAsync(contact => contact.Email.Contains(input.Filter));
+                : await _contactRepository.CountAsync(contact => contact.Email.Contains(input.Filter)
+                                                                || contact.DateOfBirth.ToString().Contains(input.Filter)
+                                                                || contact.PhoneNumber.Contains(input.Filter)
+                                                                || contact.FirstName.Contains(input.Filter)
+                                                                || contact.LastName.Contains(input.Filter));
 
             return new PagedResultDto<ContactDto>(
                 totalCount,

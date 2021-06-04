@@ -1,0 +1,23 @@
+﻿@page
+@using Abp.EmailMarketing.Localization
+@using Abp.EmailMarketing.Web.Pages.GroupContacts
+@using Microsoft.Extensions.Localization
+@using Volo.Abp.AspNetCore.Mvc.UI.Bootstrap.TagHelpers.Modal
+@model EditModalModel
+@inject IStringLocalizer<EmailMarketingResource> L
+
+@{
+    Layout = null;
+}
+
+<form asp-page="/GroupContacts/ContactView">
+    <abp-modal>
+        <abp-modal-header title="@L["Update"].Value"></abp-modal-header>
+        <abp-modal-body>
+            <abp-input asp-for="Group.Id" />
+            <abp-input asp-for="Group.Name" />
+            <abp-input asp-for="Group.Description" />
+        </abp-modal-body>
+        <abp-modal-footer buttons="@(AbpModalButtons.Cancel|AbpModalButtons.Save)"></abp-modal-footer>
+    </abp-modal>
+</form>

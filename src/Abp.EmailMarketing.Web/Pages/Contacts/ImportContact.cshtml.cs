@@ -54,7 +54,7 @@ namespace Abp.EmailMarketing.Web.Pages.Contacts
                         ContactDtos.Add(
                             new ContactDto()
                             {
-                                GroupName = row.Cell(1).Value.ToString(),
+                                //GroupName = row.Cell(1).Value.ToString(),
                                 Email = row.Cell(2).Value.ToString(),
                                 FirstName = row.Cell(3).Value.ToString(),
                                 LastName = row.Cell(4).Value.ToString(),
@@ -67,7 +67,7 @@ namespace Abp.EmailMarketing.Web.Pages.Contacts
                         createUpdateContactDtos.Add(
                             new CreateUpdateContactDto()
                             {
-                                GroupId = _groupRepository.FindByNameAsync(row.Cell(1).Value.ToString()).Result.Id,
+                                //GroupId = _groupRepository.FindByNameAsync(row.Cell(1).Value.ToString()).Result.Id,
                                 Email = row.Cell(2).Value.ToString(),
                                 FirstName = row.Cell(3).Value.ToString(),
                                 LastName = row.Cell(4).Value.ToString(),
@@ -98,7 +98,7 @@ namespace Abp.EmailMarketing.Web.Pages.Contacts
                 sb.AppendLine("<tr>");
                 foreach(ContactDto contactDto in ContactDtos)
                 {
-                    sb.Append("<td>" + contactDto.GroupName + "</td>");
+                    //sb.Append("<td>" + contactDto.GroupName + "</td>");
                     sb.Append("<td>" + contactDto.Email + "</td>");
                     sb.Append("<td>" + contactDto.FirstName + "</td>");
                     sb.Append("<td>" + contactDto.LastName + "</td>");

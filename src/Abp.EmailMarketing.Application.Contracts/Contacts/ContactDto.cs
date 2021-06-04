@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Abp.EmailMarketing.GroupContacts;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using Volo.Abp.Application.Dtos;
@@ -7,7 +8,7 @@ namespace Abp.EmailMarketing.Contacts
 {
     public class ContactDto : AuditedEntityDto<Guid>
     {
-        public Guid GroupId { get; set; }
+        public List<Guid> GroupIds { get; set; }
         public string GroupName { get; set; }
         public string Email { get; set; }
         public string FirstName { get; set; }
@@ -17,5 +18,7 @@ namespace Abp.EmailMarketing.Contacts
         public string Addition { get; set; }
         public int Status { get; set; }
         public ContactType Type { get; set; }
+
+        
     }
 }

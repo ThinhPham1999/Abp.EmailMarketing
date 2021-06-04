@@ -18,8 +18,11 @@ namespace Abp.EmailMarketing.Web.Pages.Contacts
         [BindProperty]
         public EditContactViewModel Contact { get; set; }
 
+        [BindProperty]
         public List<SelectListItem> Groups { get; set; }
 
+        [BindProperty]
+        public List<string> Result { get; set; }
         private readonly IContactAppService _contactAppService;
 
         public EditModalModel(IContactAppService contactAppService)
@@ -35,11 +38,26 @@ namespace Abp.EmailMarketing.Web.Pages.Contacts
             Groups = groupLockup.Items
                 .Select(x => new SelectListItem(x.Name, x.Id.ToString()))
                 .ToList();
-            Contact = ObjectMapper.Map<ContactDto, EditContactViewModel>(contactDto);
+            var groupInContact = await _contactAppService.GetGroupByContactId(Id);
+            List<Guid> groupIds = new List<Guid>();
+            foreach (var group in groupInContact.Items)
+            {
+                groupIds.Add(group.Id);
+            }
+            Contact.GroupIds = groupIds;
+            //Contact = ObjectMapper.Map<ContactDto, EditContactViewModel>(contactDto);
         }
 
         public async Task<IActionResult> OnPostAsync()
         {
+            List<Guid> groupid = new List<Guid>();
+            for (int i = 0; i < Result.Count; i++)
+            {
+                groupid.Add(Guid.Parse(Result[i]));
+            }
+
+            Contact.GroupIds = groupid;
+
             await _contactAppService.UpdateAsync(
                 Contact.Id,
                 ObjectMapper.Map<EditContactViewModel, CreateUpdateContactDto>(Contact)
@@ -52,10 +70,7 @@ namespace Abp.EmailMarketing.Web.Pages.Contacts
             [HiddenInput]
             public Guid Id { get; set; }
 
-            [Required]
-            [SelectItems(nameof(Groups))]
-            [DisplayName("Group Contact")]
-            public Guid GroupId { get; set; }
+            public List<Guid> GroupIds { get; set; }
 
             [Required]
             [ReadOnlyInput]

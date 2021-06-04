@@ -17,15 +17,17 @@ namespace Abp.EmailMarketing.Web.Pages.Contacts
         [BindProperty]
         public CreateContactViewModel Contact { get; set; }
 
+        [BindProperty]
         public List<SelectListItem> Groups { get; set; }
 
+        [BindProperty]
+        public List<string> Result { get; set; }
+
         private readonly IContactAppService _contactAppService;
-        private readonly IContactRepository _contactRepository;
 
         public CreateModalModel(IContactAppService contactAppService, IContactRepository contactRepository)
         {
             _contactAppService = contactAppService;
-            _contactRepository = contactRepository;
         }
 
         public async Task OnGetAsync()
@@ -38,13 +40,13 @@ namespace Abp.EmailMarketing.Web.Pages.Contacts
 
         public async Task<IActionResult> OnPostAsync()
         {
-            var contacts = await _contactRepository.GetListAsync();
-            var dul = contacts.Where(c => c.Email.Equals(Contact.Email)).FirstOrDefault();
-            if (dul != null)
+            List<Guid> groupid = new List<Guid>();
+            for (int i = 0; i < Result.Count; i++)
             {
-                ModelState.AddModelError("", "Email is already used");
-                return NoContent();
+                groupid.Add(Guid.Parse(Result[i]));
             }
+
+            Contact.GroupIds = groupid;
             
             await _contactAppService.CreateAsync(
                 ObjectMapper.Map<CreateContactViewModel, CreateUpdateContactDto>(Contact)    
@@ -54,10 +56,7 @@ namespace Abp.EmailMarketing.Web.Pages.Contacts
 
         public class CreateContactViewModel
         {
-            [Required]
-            [SelectItems(nameof(Groups))]
-            [DisplayName("Group Contact")]
-            public Guid GroupId { get; set; }
+            public List<Guid> GroupIds { get; set; }
 
             [Required]
             [RegularExpression("^[a-zA-Z0-9_\\.-]+@([a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}$", ErrorMessage = "Email is not valid")]
@@ -84,6 +83,5 @@ namespace Abp.EmailMarketing.Web.Pages.Contacts
 
             public int Status { get; set; }
         }
-
     }
 }

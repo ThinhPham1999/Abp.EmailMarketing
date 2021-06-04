@@ -50,11 +50,6 @@
                     data: "email"
                 },
                 {
-                    title: l('Group'),
-                    data: "groupName"
-                }
-                ,
-                {
                     title: l('FirstName'),
                     data: "firstName"
                 },
@@ -100,8 +95,4 @@
         e.preventDefault();
         createModal.open();
     });
-
-
-    
-
 });

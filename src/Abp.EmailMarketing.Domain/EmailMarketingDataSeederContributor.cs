@@ -79,13 +79,29 @@ namespace Abp.EmailMarketing
                          "This is group 5"
                      )
                  );
+
                 //Add contact to db
                 if (await _contactRepository.GetCountAsync() <= 0)
                 {
+                    /*List<ContactGroup> groups1 = new List<ContactGroup>();
+                    groups1.Add(new ContactGroup() 
+                    { 
+                        
+                    });
+                    groups1.Add(group02);
+                    List<Group> groups2 = new List<Group>();
+                    groups2.Add(group03);
+                    groups2.Add(group02);
+                    List<Group> groups3 = new List<Group>();
+                    groups3.Add(group04);
+                    List<Group> groups4 = new List<Group>();
+                    groups3.Add(group05);
+                    groups3.Add(group01);*/
+
                     await _contactRepository.InsertAsync(
                         new Contact
                         {
-                            GroupId = group03.Id,
+                            //Contact//Groups = groups1,
                             Email = "thinhphu1234567@gmail.com",
                             FirstName = "Pham",
                             LastName = "Thinh",
@@ -99,7 +115,7 @@ namespace Abp.EmailMarketing
                     await _contactRepository.InsertAsync(
                         new Contact
                         {
-                            GroupId = group04.Id,
+                            ////Groups = groups2,
                             Email = "beni09082004@gmail.com",
                             FirstName = "Bich",
                             LastName = "Tram",
@@ -113,7 +129,7 @@ namespace Abp.EmailMarketing
                     await _contactRepository.InsertAsync(
                         new Contact
                         {
-                            GroupId = group03.Id,
+                            ////Groups = groups3,
                             Email = "thinhpvpde130111@fpt.edu.vn",
                             FirstName = "Pham",
                             LastName = "Thinh",
@@ -126,7 +142,7 @@ namespace Abp.EmailMarketing
                     await _contactRepository.InsertAsync(
                         new Contact
                         {
-                            GroupId = group02.Id,
+                            ////Groups = groups4,
                             Email = "swuull99@gmail.com",
                             FirstName = "Hoàng",
                             LastName = "Hiệp",
@@ -139,7 +155,7 @@ namespace Abp.EmailMarketing
                     await _contactRepository.InsertAsync(
                         new Contact
                         {
-                            GroupId = group01.Id,
+                            ////Groups = groups3,
                             Email = "vantcde130099@fpt.edu.vn",
                             FirstName = "Công",
                             LastName = "Văn",
@@ -152,7 +168,7 @@ namespace Abp.EmailMarketing
                     await _contactRepository.InsertAsync(
                         new Contact
                         {
-                            GroupId = group03.Id,
+                            ////Groups = groups1,
                             Email = "vantran99d@gmail.com",
                             FirstName = "Tran Công",
                             LastName = "Văn",
@@ -165,7 +181,7 @@ namespace Abp.EmailMarketing
                     await _contactRepository.InsertAsync(
                         new Contact
                         {
-                            GroupId = group05.Id,
+                            ////Groups = groups4,
                             Email = "hungpqDE130125@fpt.edu.vn",
                             FirstName = "Pham",
                             LastName = "Hưng",
@@ -178,7 +194,7 @@ namespace Abp.EmailMarketing
                     await _contactRepository.InsertAsync(
                         new Contact
                         {
-                            GroupId = group04.Id,
+                           // //Groups = groups2,
                             Email = "minhvhDE130134@fpt.edu.vn",
                             FirstName = "Vũ",
                             LastName = "Minh",
@@ -191,7 +207,7 @@ namespace Abp.EmailMarketing
                     await _contactRepository.InsertAsync(
                         new Contact
                         {
-                            GroupId = group02.Id,
+                            //Groups = groups1,
                             Email = "haonmde130144@fpt.edu.vn",
                             FirstName = "Minh",
                             LastName = "Hào",
@@ -204,7 +220,7 @@ namespace Abp.EmailMarketing
                     await _contactRepository.InsertAsync(
                         new Contact
                         {
-                            GroupId = group02.Id,
+                            //Groups = groups3,
                             Email = "lamntDE130128@fpt.edu.vn",
                             FirstName = "Trí",
                             LastName = "Lâm",
@@ -217,7 +233,7 @@ namespace Abp.EmailMarketing
                     await _contactRepository.InsertAsync(
                         new Contact
                         {
-                            GroupId = group01.Id,
+                            //Groups = groups3,
                             Email = "anhpnDE130131@fpt.edu.vn",
                             FirstName = "Nhật",
                             LastName = "Anh",
@@ -230,7 +246,7 @@ namespace Abp.EmailMarketing
                     await _contactRepository.InsertAsync(
                         new Contact
                         {
-                            GroupId = group01.Id,
+                            //Groups = groups4,
                             Email = "minhnhde130140@fpt.edu.vn",
                             FirstName = "Nguyễn",
                             LastName = "Minh",
@@ -243,7 +259,7 @@ namespace Abp.EmailMarketing
                     await _contactRepository.InsertAsync(
                         new Contact
                         {
-                            GroupId = group03.Id,
+                            //Groups = groups1,
                             Email = "namptDE130115@fpt.edu.vn",
                             FirstName = "Trung",
                             LastName = "Nam",
@@ -256,7 +272,7 @@ namespace Abp.EmailMarketing
                     await _contactRepository.InsertAsync(
                         new Contact
                         {
-                            GroupId = group04.Id,
+                            //Groups = groups2,
                             Email = "longtvDE130118@fpt.edu.vn",
                             FirstName = "Việt",
                             LastName = "Long",
@@ -269,7 +285,7 @@ namespace Abp.EmailMarketing
                     await _contactRepository.InsertAsync(
                         new Contact
                         {
-                            GroupId = group02.Id,
+                            //Groups = groups4,
                             Email = "hiepmhDE130105@fpt.edu.vn",
                             FirstName = "Hoàng",
                             LastName = "Hiệp",
@@ -282,7 +298,7 @@ namespace Abp.EmailMarketing
                     await _contactRepository.InsertAsync(
                         new Contact
                         {
-                            GroupId = group05.Id,
+                            //Groups = groups3,
                             Email = "huypcDE130102@fpt.edu.vn",
                             FirstName = "Công",
                             LastName = "Huy",
@@ -295,7 +311,7 @@ namespace Abp.EmailMarketing
                     await _contactRepository.InsertAsync(
                         new Contact
                         {
-                            GroupId = group05.Id,
+                            //Groups = groups3,
                             Email = "cuongnmde130123@fpt.edu.vn",
                             FirstName = "Manh",
                             LastName = "Cường",
@@ -308,7 +324,7 @@ namespace Abp.EmailMarketing
                     await _contactRepository.InsertAsync(
                         new Contact
                         {
-                            GroupId = group02.Id,
+                            //Groups = groups1,
                             Email = "huyndde140196@fpt.edu.vn",
                             FirstName = "Đức",
                             LastName = "Huy",
@@ -321,7 +337,7 @@ namespace Abp.EmailMarketing
                     await _contactRepository.InsertAsync(
                         new Contact
                         {
-                            GroupId = group03.Id,
+                            //Groups = groups3,
                             Email = "khoatpaDE130107@fpt.edu.vn",
                             FirstName = "Anh",
                             LastName = "Khoa",
@@ -334,7 +350,7 @@ namespace Abp.EmailMarketing
                     await _contactRepository.InsertAsync(
                         new Contact
                         {
-                            GroupId = group01.Id,
+                            //Groups = groups3,
                             Email = "duynhtDE130023@fpt.edu.vn",
                             FirstName = "Thế",
                             LastName = "Duy",
@@ -347,7 +363,7 @@ namespace Abp.EmailMarketing
                     await _contactRepository.InsertAsync(
                         new Contact
                         {
-                            GroupId = group01.Id,
+                            //Groups = groups2,
                             Email = "trambich0935@gmail.com",
                             FirstName = "Bích",
                             LastName = "Trâm",

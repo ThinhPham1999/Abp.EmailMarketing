@@ -1,4 +1,5 @@
-﻿using Abp.EmailMarketing.Permissions;
+﻿using Abp.EmailMarketing.Contacts;
+using Abp.EmailMarketing.Permissions;
 using Microsoft.AspNetCore.Authorization;
 using System;
 using System.Collections.Generic;
@@ -15,11 +16,14 @@ namespace Abp.EmailMarketing.GroupContacts
     {
         private readonly IGroupRepository _groupRepository;
         private readonly GroupManager _groupManager;
+        private readonly IContactRepository _contactRepository;
 
-        public GroupAppService(IGroupRepository groupRepository, GroupManager groupManager)
+        public GroupAppService(IGroupRepository groupRepository, GroupManager groupManager,
+            IContactRepository contactRepository)
         {
             _groupRepository = groupRepository;
             _groupManager = groupManager;
+            _contactRepository = contactRepository;
         }
 
         [Authorize(EmailMarketingPermissions.Groups.Create)]
@@ -84,6 +88,26 @@ namespace Abp.EmailMarketing.GroupContacts
             group.Description = input.Description;
 
             await _groupRepository.UpdateAsync(group);
+        }
+
+
+        public async Task<List<ContactDto>> GetListContact()
+        {
+            var list = await _contactRepository.GetListAsync();
+            var result = ObjectMapper.Map<List<Contact>, List<ContactDto>>(list);
+            return result;
+        }
+
+        public async Task<List<ContactDto>> GetListContactByGroup(Guid groupId)
+        {
+            var list = await _contactRepository.GetListAsync();
+            foreach (var contact in list)
+            {
+                await _contactRepository.EnsureCollectionLoadedAsync(contact, x => x.ContactGroups);
+            }
+
+            list = list.Where(c => c.ContactGroups.Any(gid => gid.GroupId.ToString().Equals(groupId.ToString()))).ToList();
+            return ObjectMapper.Map<List<Contact>, List<ContactDto>>(list);
         }
     }
 }

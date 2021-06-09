@@ -3,21 +3,52 @@
 @using Abp.EmailMarketing.Web.Pages.GroupContacts
 @using Microsoft.Extensions.Localization
 @using Volo.Abp.AspNetCore.Mvc.UI.Bootstrap.TagHelpers.Modal
-@model EditModalModel
+@model ContactViewModel
 @inject IStringLocalizer<EmailMarketingResource> L
 
 @{
     Layout = null;
 }
 
-<form asp-page="/GroupContacts/ContactView">
-    <abp-modal>
-        <abp-modal-header title="@L["Update"].Value"></abp-modal-header>
-        <abp-modal-body>
-            <abp-input asp-for="Group.Id" />
-            <abp-input asp-for="Group.Name" />
-            <abp-input asp-for="Group.Description" />
-        </abp-modal-body>
-        <abp-modal-footer buttons="@(AbpModalButtons.Cancel|AbpModalButtons.Save)"></abp-modal-footer>
-    </abp-modal>
-</form>
+<abp-modal size="Large" id="ContactViewModal">
+    <abp-modal-header title="@L["Contacts"]"></abp-modal-header>
+    <abp-modal-body>
+        <div class="overflow-auto bg-light m-1" style="height: 400px">
+            <table class="table table-hover overflow-auto">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th>FirstName</th>
+                        <th>LastName</th>
+                        <th>Email</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @for (int i = 0; i < Model.ContactDtos.Count; i++)
+                    {
+                        <tr>
+                            <td>
+                                <div class="form-check">
+                                    @if (Model.ContactOld.Any(c => c.Id.ToString().Equals(@Model.ContactDtos[i].Id.ToString())))
+                                    {
+                                        <input class="form-check-input" type="checkbox" id="@Model.ContactDtos[i]" value="@Model.ContactDtos[i].Id" name="Result" checked />
+                                    }
+                                    else
+                                    {
+                                        <input class="form-check-input" type="checkbox" id="@Model.ContactDtos[i]" value="@Model.ContactDtos[i].Id" name="Result" />
+                                    }
+                                </div>
+                            </td>
+                            <td>@Model.ContactDtos[i].FirstName</td>
+                            <td>@Model.ContactDtos[i].LastName</td>
+                            <td>@Model.ContactDtos[i].Email</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </abp-modal-body>
+    <abp-modal-footer buttons="@(AbpModalButtons.Cancel)"></abp-modal-footer>
+</abp-modal>
+
+

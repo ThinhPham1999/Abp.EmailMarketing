@@ -79,6 +79,7 @@ namespace Abp.EmailMarketing.Web.Pages.Emails
                             sb.Append("<td>" + createEmailDto.EmailString + "</td>");
                             sb.Append("<td>" + createEmailDto.Password + "</td>");
                             sb.AppendLine("</tr>");
+                            Console.WriteLine(ex);
                         }
                     }
                 }

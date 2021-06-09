@@ -64,6 +64,7 @@
         "Permission:Emails.Delete": "Deleting the email user",
         "Menu:Emails": "Email User",
         "EmailMarketing:00002": "There is already an campaign with the same name: {name}",
-        "EmailMarketing:00003": "There is already had an email user: {emailString}"
+        "EmailMarketing:00003": "There is already had an email user: {emailString}",
+        "ImportContact": "Import Contact"
     }
 }

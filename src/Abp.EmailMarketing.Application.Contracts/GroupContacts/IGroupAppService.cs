@@ -17,5 +17,7 @@ namespace Abp.EmailMarketing.GroupContacts
         Task DeleteAsync(Guid id);
         Task<List<ContactDto>> GetListContact();
         Task<List<ContactDto>> GetListContactByGroup(Guid groupId);
+
+        Task UpdateContactInGroup(UpdateContactInGroupDto input);
     }
 }

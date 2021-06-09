@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Abp.EmailMarketing.Contacts;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,5 +15,7 @@ namespace Abp.EmailMarketing.GroupContacts
         Task<GroupDto> CreateAsync(CreateGroupDto input);
         Task UpdateAsync(Guid id, UpdateGroupDto input);
         Task DeleteAsync(Guid id);
+        Task<List<ContactDto>> GetListContact();
+        Task<List<ContactDto>> GetListContactByGroup(Guid groupId);
     }
 }

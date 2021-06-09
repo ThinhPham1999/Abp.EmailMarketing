@@ -184,5 +184,13 @@ namespace Abp.EmailMarketing.Contacts
                 ObjectMapper.Map<List<Group>, List<GroupLookupDto>>(result)
             );
         }
+
+        public async Task<List<ContactDto>> GetListAsyncByGroup(string input)
+        {
+            var list = await _contactRepository.GetListAsync();
+            return new List<ContactDto>(
+                ObjectMapper.Map<List<Contact>, List<ContactDto>>(list)
+            );
+        }
     }
 }

@@ -26,6 +26,8 @@ namespace Abp.EmailMarketing.Web
             CreateMap<EmailDto, Pages.Emails.EditModalModel.EditEmailViewModel>();
             CreateMap<Pages.Emails.EditModalModel.EditEmailViewModel, CreateUpdateEmailDto>();
             CreateMap<Pages.Emails.CreateModalModel.CreateEmailViewModel, CreateUpdateEmailDto>();
+
+            CreateMap<ContactDto, Pages.GroupContacts.ContactViewModel.ContactView>();
         }
     }
 }

@@ -2,6 +2,8 @@
     var l = abp.localization.getResource('EmailMarketing');
     var createModal = new abp.ModalManager(abp.appPath + 'GroupContacts/CreateModal');
     var editModal = new abp.ModalManager(abp.appPath + 'GroupContacts/EditModal');
+    var viewContactModal = new abp.ModalManager(abp.appPath + 'GroupContacts/ContactView');
+
 
     var dataTable = $('#GroupsTable').DataTable(
         abp.libs.datatables.normalizeConfiguration({
@@ -60,7 +62,7 @@
                                     visible:
                                         abp.auth.isGranted('EmailMarketing.Groups.Edit'),
                                     action: function (data) {
-                                        editModal.open({ id: data.record.id });
+                                        viewContactModal.open({ id: data.record.id });
                                     }
                                 }
                             ]
@@ -87,8 +89,11 @@
         dataTable.ajax.reload();
     });
 
+
     $('#NewGroupButton').click(function (e) {
         e.preventDefault();
         createModal.open();
     });
+
+    
 });

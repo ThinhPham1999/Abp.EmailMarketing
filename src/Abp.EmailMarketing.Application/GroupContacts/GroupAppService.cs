@@ -109,5 +109,38 @@ namespace Abp.EmailMarketing.GroupContacts
             list = list.Where(c => c.ContactGroups.Any(gid => gid.GroupId.ToString().Equals(groupId.ToString()))).ToList();
             return ObjectMapper.Map<List<Contact>, List<ContactDto>>(list);
         }
+
+        public async Task UpdateContactInGroup(UpdateContactInGroupDto input)
+        {
+            var group = await _groupRepository.GetAsync(input.GroupId, includeDetails: false);
+            await _groupRepository.EnsureCollectionLoadedAsync(group, x => x.ContactGroups);
+
+            //Add new relationship
+            foreach (Guid contactId in input.Id)
+            {
+                var item = group.ContactGroups.FirstOrDefault(gid => gid.ContactId.ToString().Equals(contactId.ToString()));
+                if (item == null)
+                {
+                    group.ContactGroups.Add(new ContactGroup(
+                        GuidGenerator.Create(),
+                        contactId,
+                        input.GroupId
+                    ));
+                }
+            }
+
+            //Remove relationship
+            for (int i = 0; i < group.ContactGroups.Count; i++)
+            {
+                Guid item = input.Id.FirstOrDefault(cid => cid.ToString().Equals(group.ContactGroups[i].ContactId.ToString()));
+                if (item.ToString().Equals(Guid.Empty.ToString()))
+                {
+                    group.ContactGroups.Remove(group.ContactGroups[i]);
+                    i--;
+                }
+            }
+
+            await _groupRepository.UpdateAsync(group);
+        } 
     }
 }

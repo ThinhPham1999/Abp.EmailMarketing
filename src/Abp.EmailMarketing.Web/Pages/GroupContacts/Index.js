@@ -48,15 +48,7 @@
                                                 dataTable.ajax.reload();
                                             });
                                     }
-                                }
-                            ]
-                    }
-                },
-                {
-                    title: l('Contact'),
-                    rowAction: {
-                        items:
-                            [
+                                },
                                 {
                                     text: l('View Contact'),
                                     visible:
@@ -64,11 +56,18 @@
                                     action: function (data) {
                                         viewContactModal.open({ id: data.record.id });
                                     }
+                                },
+                                {
+                                    text: l('Import Contact'),
+                                    visible:
+                                        abp.auth.isGranted('EmailMarketing.Groups.Edit'),
+                                    action: function (data) {
+                                        window.location = '/GroupContacts/ImportContact?id=' + data.record.id;
+                                    }
                                 }
                             ]
                     }
-                }
-                ,
+                },
                 {
                     title: l('Name'),
                     data: "name"

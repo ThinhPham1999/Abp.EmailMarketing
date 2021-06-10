@@ -119,7 +119,7 @@ namespace Abp.EmailMarketing.Web.Pages.GroupContacts
 
             var path = Path.Combine(
                            Directory.GetCurrentDirectory(),
-                           "wwwroot\\File", "EmailUser.xlsx");
+                           "wwwroot\\File", "ContactDto.xlsx");
 
             var memory = new MemoryStream();
             using (var stream = new FileStream(path, FileMode.Open))

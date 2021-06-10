@@ -74,8 +74,18 @@ namespace Abp.EmailMarketing.Campaigns
             foreach(Group group in campaign.Groups)
             {
                 var contacts = await _contactRepository.GetListAsync();
-                //contacts = contacts.Where(c => c.GroupId.Equals(group.Id)).ToList();
-                foreach (Contact c in contacts)
+                var listContacts = new List<Contact>();
+                /*contacts.ForEach( async (c) =>
+                {
+                    await _contactRepository.EnsureCollectionLoadedAsync(c, x => x.ContactGroups);
+                });*/
+                await _groupRepository.EnsureCollectionLoadedAsync(group, x => x.ContactGroups);
+                foreach (var cId in group.ContactGroups)
+                {
+                    listContacts.Add(cId.Contact);
+                }
+                //contacts = contacts.Where(c => c.Id.Equals(group.ContactGroups.)).ToList();
+                foreach (Contact c in listContacts)
                 {
                     var email = emails.OrderBy(e => e.Order).FirstOrDefault();
                     //AnotherEmailService service = new AnotherEmailService();
